@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acco - Agence Web Paris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0e0e0f;
+            --bg-card: #1a1a1b;
+            --text-white: #ffffff;
+            --text-gray: #6e7178;
+            --text-light-gray: #999;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --border-color: #252729;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-title: 'Poppins', sans-serif;
+            --font-mono: 'Chivo Mono', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .section-title, .big-text, .snap-panel-title,
+        .testimonials-title, .about-text, .hero-subtitle, .footer-email,
+        .service-name, .faq-question, .portfolio-header h2 {
+            font-family: var(--font-title);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(14, 14, 15, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-btn div {
+            width: 28px;
+            height: 2px;
+            background: var(--text-white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .menu-btn div:last-child {
+            width: 20px;
+            margin-left: auto;
+        }
+
+        /* MOBILE NAV */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .mobile-nav.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav a {
+            font-size: 36px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .mobile-nav a:hover {
+            opacity: 1;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Marquee bands background */
+        .hero-marquee-bg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+            z-index: 0;
+            transform: rotate(-12deg) scale(1.4);
+        }
+
+        .hero-band {
+            display: flex;
+            gap: 12px;
+            width: max-content;
+            flex-shrink: 0;
+        }
+
+        .hero-band.scroll-left {
+            animation: bandScrollLeft 30s linear infinite;
+        }
+
+        .hero-band.scroll-right {
+            animation: bandScrollRight 30s linear infinite;
+        }
+
+        @keyframes bandScrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes bandScrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .hero-band-item {
+            width: 140px;
+            height: 190px;
+            border-radius: 70px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .hero-band-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Dark overlay on bands */
+        .hero-marquee-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(14,14,15,0.4) 0%, rgba(14,14,15,0.85) 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(60px, 15vw, 180px);
+            font-weight: 900;
+            letter-spacing: -5px;
+            line-height: 0.9;
+            margin-bottom: -80px;
+            opacity: 0;
+            transform: translateY(70px) scale(0.5);
+            animation: heroTitleIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        }
+
+        .hero-title sup {
+            font-size: 0.3em;
+            vertical-align: super;
+            font-weight: 400;
+        }
+
+        .hero-logo-img {
+            height: clamp(350px, 75vw, 900px);
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1) drop-shadow(0 0 15px #cf7474) drop-shadow(0 0 30px #cf7474) drop-shadow(0 0 50px rgba(207, 116, 116, 0.6));
+        }
+
+        @keyframes heroTitleIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--text-white);
+            max-width: 500px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating abstract shapes */
+        .hero-bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .hero-bg-shape-1 {
+            width: 400px;
+            height: 400px;
+            background: #ff3366;
+            top: 10%;
+            left: -10%;
+        }
+
+        .hero-bg-shape-2 {
+            width: 300px;
+            height: 300px;
+            background: #a855f7;
+            bottom: 10%;
+            right: -5%;
+        }
+
+        /* SECTION COMMON */
+        .section {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-sm {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ABOUT TEXT */
+        .about-text {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            max-width: 900px;
+        }
+
+        /* CLIENTS MARQUEE */
+        .clients-bar {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
+            background: rgba(14, 14, 15, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .clients-track {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            animation: marquee 20s linear infinite;
+            width: max-content;
+        }
+
+        .client-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0.5;
+        }
+
+        .client-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* PROJECTS */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .section-desc {
+            color: var(--text-gray);
+            font-size: 16px;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .see-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-white);
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .see-all:hover {
+            background: var(--text-white);
+            color: var(--bg-dark);
+        }
+
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding: 0 20px;
+        }
+
+        .project-card {
+            position: sticky;
+            top: 80px;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 85vh;
+            min-height: 500px;
+            cursor: pointer;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+            z-index: 1;
+            margin-bottom: -30px;
+        }
+
+        .project-card:nth-child(1) { top: 80px; z-index: 1; }
+        .project-card:nth-child(2) { top: 90px; z-index: 2; }
+        .project-card:nth-child(3) { top: 100px; z-index: 3; }
+        .project-card:nth-child(4) { top: 110px; z-index: 4; }
+        .project-card:nth-child(5) { top: 120px; z-index: 5; }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-card img {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-card-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .project-card-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .project-card-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: white;
+            font-weight: 500;
+            z-index: 3;
+        }
+
+        .project-card.large {
+            /* same as other cards */
+        }
+
+        /* SERVICES */
+        .services-section {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-header {
+            margin-bottom: 60px;
+        }
+
+        .services-header h2 {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+        }
+
+        .services-header p {
+            color: var(--text-gray);
+            font-size: 16px;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .get-in-touch {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-white);
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 16px;
+            border-bottom: 1.5px solid var(--text-white);
+            padding-bottom: 4px;
+            transition: opacity 0.3s;
+        }
+
+        .get-in-touch:hover {
+            opacity: 0.7;
+        }
+
+        .get-in-touch svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: #444;
+            transform: translateY(-2px);
+        }
+
+        .service-number {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        .service-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .service-desc {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* BIG TEXT SECTION */
+        .big-text-section {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .big-text {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+        }
+
+        /* STATS */
+        .stats-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-image {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+        .stats-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item .stat-number {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+        }
+
+        .stat-item .stat-label {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* SNAP SCROLL SECTION */
+        .snap-panel {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .snap-panel-content {
+            max-width: 900px;
+            padding: 40px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .snap-panel-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+        }
+
+        .snap-panel-title {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .snap-panel-desc {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-gray);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .snap-panel:nth-child(1) {
+            background: linear-gradient(135deg, #0e0e0f 0%, #1a1028 50%, #0e0e0f 100%);
+        }
+
+        .snap-panel:nth-child(2) {
+            background: linear-gradient(135deg, #0e0e0f 0%, #0f1a1a 50%, #0e0e0f 100%);
+        }
+
+        .snap-panel:nth-child(3) {
+            background: linear-gradient(135deg, #0e0e0f 0%, #1a160f 50%, #0e0e0f 100%);
+        }
+
+        .snap-panel-number {
+            position: absolute;
+            font-size: clamp(200px, 30vw, 400px);
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            z-index: 1;
+            letter-spacing: -10px;
+            user-select: none;
+        }
+
+        .snap-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .snap-dots.active {
+            display: flex;
+        }
+
+        .snap-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .snap-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-section {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        .testimonials-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .testimonials-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 600;
+            margin-bottom: 60px;
+            max-width: 600px;
+            letter-spacing: -1px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            overflow: visible;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.1s linear, opacity 0.1s linear;
+            will-change: transform, opacity;
+        }
+
+        .testimonial-card.fly-left {
+            /* animated via JS */
+        }
+
+        .testimonial-card.fly-right {
+            /* animated via JS */
+        }
+
+        .testimonial-img {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .testimonial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .testimonial-card:hover .testimonial-img img {
+            transform: scale(1.05);
+        }
+
+        .testimonial-content {
+            padding: 28px;
+        }
+
+        .testimonial-quote {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-light-gray);
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .testimonial-name {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 120px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--text-light-gray);
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 24px;
+        }
+
+        .faq-answer p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* PORTFOLIO CAROUSEL */
+        .portfolio-scroll-wrapper {
+            height: 250vh; /* scroll space for 3 steps */
+            position: relative;
+        }
+
+        .portfolio-section {
+            padding: 80px 0;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .portfolio-header {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+
+        .portfolio-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-header h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .portfolio-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0;
+        }
+
+        .portfolio-track {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .portfolio-item {
+            flex: 0 0 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.85);
+            opacity: 0.5;
+            filter: brightness(0.6);
+            cursor: pointer;
+        }
+
+        .portfolio-item.active {
+            transform: scale(1.05);
+            opacity: 1;
+            filter: brightness(1);
+            z-index: 2;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block;
+        }
+
+        .portfolio-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .portfolio-item-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .portfolio-item-type {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Carousel indicators */
+        .portfolio-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 30px;
+        }
+
+        .portfolio-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .portfolio-dot.active {
+            background: var(--text-white);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-item {
+                flex: 0 0 200px;
+                transform: scale(0.8);
+            }
+            .portfolio-item.active {
+                transform: scale(1.05);
+            }
+            .portfolio-track {
+                gap: 10px;
+            }
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 80px 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .footer-big-logo {
+            font-size: clamp(60px, 15vw, 180px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            color: var(--border-color);
+            text-align: center;
+            margin-bottom: 60px;
+            line-height: 1;
+        }
+
+        .footer-big-logo sup {
+            font-size: 0.25em;
+            vertical-align: super;
+        }
+
+        .footer-newsletter {
+            margin-bottom: 40px;
+        }
+
+        .footer-newsletter h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .footer-newsletter p {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-white);
+            font-size: 15px;
+            font-family: var(--font-main);
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--text-gray);
+        }
+
+        .newsletter-form button {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-main);
+        }
+
+        .footer-email {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 700;
+            margin-bottom: 40px;
+            display: inline-block;
+            border-bottom: 2px solid var(--text-white);
+            padding-bottom: 4px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-white);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .footer-social span {
+            margin: 0 4px;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        /* GRADIENT GLOW */
+        .footer-glow {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1), transparent);
+            pointer-events: none;
+            filter: blur(60px);
+        }
+
+        /* SCROLL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* Counter animation */
+        .stat-number {
+            display: inline-block;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 20px;
+            }
+
+            .project-card {
+                height: 75vh;
+                min-height: 400px;
+            }
+
+            .snap-panel-content {
+                padding: 24px;
+            }
+
+            .snap-dots {
+                right: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-images {
+                height: 300px;
+            }
+
+            .hero-img-1 {
+                width: 160px;
+                height: 200px;
+            }
+
+            .hero-img-2 {
+                width: 150px;
+                height: 220px;
+            }
+
+            .hero-img-3 {
+                width: 160px;
+                height: 190px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .project-card {
+                height: 85vh;
+                min-height: 550px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar {
+                padding: 24px 60px;
+            }
+
+            .section, .section-sm, .services-section, .testimonials-section,
+            .blog-section, .footer, .big-text-section, .stats-section, .faq-section {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+
+            .projects-grid {
+                margin-left: -60px;
+                margin-right: -60px;
+                padding: 0 20px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#hero" class="logo"><img src="image/En-tête (11).png" alt="Acco Logo"></a>
+        <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#" onclick="toggleMenu()">Accueil</a>
+        <a href="#projects" onclick="toggleMenu()">Projets</a>
+        <a href="#about" onclick="toggleMenu()">À propos</a>
+        <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="mailto:contact@acco.fr" style="font-size:18px;color:var(--text-gray)">contact@acco.fr</a>
+        <div style="display:flex;gap:16px;color:var(--text-gray);font-size:14px;">
+            <a href="#">BE</a><span>/</span><a href="#">DR</a><span>/</span><a href="#">X</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <!-- Marquee bands background -->
+        <div class="hero-marquee-bg">
+            <!-- Band 1 - scroll left -->
+            <div class="hero-band scroll-left">
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h1/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h2/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h3/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h4/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h5/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h6/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h7/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h8/320/400" alt=""></div>
+                <!-- duplicate for seamless loop -->
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h1/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h2/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h3/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h4/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h5/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h6/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h7/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h8/320/400" alt=""></div>
+            </div>
+            <!-- Band 2 - scroll right -->
+            <div class="hero-band scroll-right">
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h9/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h10/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h11/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h12/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h13/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h14/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h15/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h16/320/400" alt=""></div>
+                <!-- duplicate -->
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h9/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h10/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h11/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h12/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h13/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h14/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h15/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h16/320/400" alt=""></div>
+            </div>
+            <!-- Band 3 - scroll left -->
+            <div class="hero-band scroll-left" style="animation-duration: 35s;">
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h17/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h18/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h19/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h20/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h21/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h22/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h23/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h24/320/400" alt=""></div>
+                <!-- duplicate -->
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h17/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h18/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h19/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h20/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h21/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h22/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h23/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h24/320/400" alt=""></div>
+            </div>
+            <!-- Band 4 - scroll right -->
+            <div class="hero-band scroll-right" style="animation-duration: 28s;">
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h25/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h26/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h27/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h28/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h29/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h30/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h31/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h32/320/400" alt=""></div>
+                <!-- duplicate -->
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h25/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h26/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h27/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h28/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h29/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h30/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h31/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h32/320/400" alt=""></div>
+            </div>
+            <!-- Band 5 - scroll left -->
+            <div class="hero-band scroll-left" style="animation-duration: 32s;">
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h33/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h34/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h35/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h36/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h37/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h38/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h39/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h40/320/400" alt=""></div>
+                <!-- duplicate -->
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h33/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h34/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h35/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h36/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h37/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h38/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h39/320/400" alt=""></div>
+                <div class="hero-band-item"><img src="https://picsum.photos/seed/h40/320/400" alt=""></div>
+            </div>
+        </div>
+
+        <!-- Dark overlay so text is readable -->
+        <div class="hero-marquee-overlay"></div>
+
+        <!-- Hero content on top -->
+        <div class="hero-content">
+            <h1 class="hero-title"><img src="image/En-tête (4).png" alt="Acco" class="hero-logo-img"></h1>
+            <p class="hero-subtitle">Nous sommes Acco — une agence web basée à Paris.</p>
+        </div>
+    </section>
+
+    <!-- ABOUT TEXT -->
+    <section class="section" id="about">
+        <p class="about-text reveal">Acco &mdash; une agence web qui crée des sites vitrines percutants, des campagnes ads performantes et améliore votre visibilité sur Google.</p>
+    </section>
+
+    <!-- CLIENTS BAR -->
+    <div class="clients-bar">
+        <div class="clients-track">
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5"/></svg> Bliss+</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2z"/></svg> Flea</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg> Polltree</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg> Winden</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg> Orion</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg> Clonify</div>
+            <!-- duplicate for seamless loop -->
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5"/></svg> Bliss+</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2z"/></svg> Flea</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg> Polltree</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg> Winden</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg> Orion</div>
+            <div class="client-item"><svg class="client-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg> Clonify</div>
+        </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+        <div class="section-header reveal">
+            <div>
+                <h2 class="section-title">Projets.</h2>
+                <p class="section-desc">Chaque pixel naît d'une stratégie claire pensée pour vous faire grandir.</p>
+            </div>
+            <a href="#" class="see-all">Tout voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="https://picsum.photos/seed/lunar/800/800" alt="Lunar+ Project">
+                <div class="project-card-overlay">
+                    <div class="project-card-logo">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/><line x1="4" y1="12" x2="20" y2="12" stroke="white" stroke-width="1.5"/><line x1="12" y1="4" x2="12" y2="20" stroke="white" stroke-width="1.5"/></svg>
+                        Lunar
+                    </div>
+                </div>
+                <div class="project-card-tag">Lunar+</div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://picsum.photos/seed/clonify/800/800" alt="Clonify Project">
+                <div class="project-card-overlay">
+                    <div class="project-card-logo">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
+                        Clonify
+                    </div>
+                </div>
+                <div class="project-card-tag">Clonify</div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://picsum.photos/seed/grotesks/800/800" alt="Grotesks Project">
+                <div class="project-card-overlay">
+                    <div class="project-card-logo">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/><path d="M8 12h8" stroke="white" stroke-width="2"/></svg>
+                        Grotesks
+                    </div>
+                </div>
+                <div class="project-card-tag">Grotesks</div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://picsum.photos/seed/zypher/800/800" alt="Zypher Project">
+                <div class="project-card-overlay">
+                    <div class="project-card-logo">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="white" stroke-width="2"/></svg>
+                        Zypher
+                    </div>
+                </div>
+                <div class="project-card-tag">Zypher&reg;</div>
+            </div>
+
+            <div class="project-card large">
+                <img src="https://picsum.photos/seed/blob/1600/800" alt="Blob Project" style="filter:brightness(0.6)">
+                <div class="project-card-overlay">
+                    <div class="project-card-logo">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg>
+                        Blob
+                    </div>
+                </div>
+                <div class="project-card-tag">Blob</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services-section" id="services">
+        <div class="services-header reveal">
+            <h2>Services.</h2>
+            <p>Nous aidons les entreprises de tous secteurs à atteindre leurs objectifs.</p>
+            <a href="#contact" class="get-in-touch">
+                Nous contacter
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <div class="services-list">
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-number">_001</div>
+                <div class="service-name">Sites Vitrines</div>
+                <div class="service-desc">Des sites web élégants et modernes qui reflètent parfaitement votre image de marque.</div>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-number">_002</div>
+                <div class="service-name">Campagnes Ads</div>
+                <div class="service-desc">Des campagnes Google Ads et Meta Ads optimisées pour un retour sur investissement maximal.</div>
+            </div>
+            <div class="service-card reveal reveal-delay-3">
+                <div class="service-number">_003</div>
+                <div class="service-name">Référencement SEO</div>
+                <div class="service-desc">Améliorez votre positionnement Google grâce à des stratégies SEO sur mesure basées sur la data.</div>
+            </div>
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-number">_004</div>
+                <div class="service-name">Réseaux Sociaux</div>
+                <div class="service-desc">On planifie, publie et développe votre marque sur toutes les plateformes avec stratégie.</div>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-number">_005</div>
+                <div class="service-name">Apps IA</div>
+                <div class="service-desc">Des applications d'intelligence artificielle sur mesure, pensées pour maximiser votre ROI.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <div class="portfolio-scroll-wrapper" id="portfolioWrapper">
+    <section class="portfolio-section" id="portfolio">
+        <div class="portfolio-header reveal">
+            <div class="portfolio-label">PORTFOLIO</div>
+            <h2>Nos réalisations.</h2>
+        </div>
+
+        <div class="portfolio-carousel">
+            <div class="portfolio-track" id="portfolioTrack">
+                <div class="portfolio-item" data-index="0">
+                    <img src="https://picsum.photos/seed/port1/600/800" alt="Novara Studio">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Novara Studio</div>
+                        <div class="portfolio-item-type">Site d'agence</div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-index="1">
+                    <img src="https://picsum.photos/seed/port2/600/800" alt="Zenith App">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Zenith App</div>
+                        <div class="portfolio-item-type">Plateforme SaaS</div>
+                    </div>
+                </div>
+                <div class="portfolio-item active" data-index="2">
+                    <img src="https://picsum.photos/seed/port3/600/800" alt="Ember & Co">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Ember &amp; Co</div>
+                        <div class="portfolio-item-type">E-commerce</div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-index="3">
+                    <img src="https://picsum.photos/seed/port4/600/800" alt="Pulse Health">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Pulse Health</div>
+                        <div class="portfolio-item-type">App Santé</div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-index="4">
+                    <img src="https://picsum.photos/seed/port5/600/800" alt="Atlas Finance">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Atlas Finance</div>
+                        <div class="portfolio-item-type">Dashboard Fintech</div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-index="5">
+                    <img src="https://picsum.photos/seed/port6/600/800" alt="Drift Studio">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Drift Studio</div>
+                        <div class="portfolio-item-type">Portfolio</div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-index="6">
+                    <img src="https://picsum.photos/seed/port7/600/800" alt="Neon Collective">
+                    <div class="portfolio-item-overlay">
+                        <div class="portfolio-item-name">Neon Collective</div>
+                        <div class="portfolio-item-type">Agence Créative</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-indicators" id="portfolioIndicators"></div>
+    </section>
+    </div>
+
+    <!-- BIG TEXT + STATS -->
+    <section class="big-text-section">
+        <p class="big-text reveal">Acco est une agence web qui façonne des marques fortes et des idées audacieuses.</p>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-image reveal">
+            <img src="https://picsum.photos/seed/holo/1200/500" alt="Abstract holographic">
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item reveal reveal-delay-1">
+                <div class="stat-number" data-target="3000000" data-suffix="m+" data-prefix="">3m+</div>
+                <div class="stat-label">De chiffre d'affaires généré pour nos clients.</div>
+            </div>
+            <div class="stat-item reveal reveal-delay-2">
+                <div class="stat-number" data-target="281">281</div>
+                <div class="stat-label">Sites web lancés grâce à notre processus créatif.</div>
+            </div>
+            <div class="stat-item reveal reveal-delay-3">
+                <div class="stat-number" data-target="56">56</div>
+                <div class="stat-label">Campagnes ads lancées avec succès.</div>
+            </div>
+            <div class="stat-item reveal reveal-delay-4">
+                <div class="stat-number" data-target="97" data-suffix="%">97%</div>
+                <div class="stat-label">De satisfaction client sur l'ensemble de nos projets.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SNAP SCROLL PANELS -->
+    <section class="snap-panel" data-snap="0" id="approach">
+        <div class="snap-panel-number">01</div>
+        <div class="snap-panel-content">
+            <div class="snap-panel-label">_001 / Approche</div>
+            <h2 class="snap-panel-title">La stratégie d'abord,<br>les pixels ensuite.</h2>
+            <p class="snap-panel-desc">Chaque projet commence par une recherche approfondie et une stratégie claire. On s'aligne sur les objectifs avant de poser le moindre pixel.</p>
+        </div>
+    </section>
+    <section class="snap-panel" data-snap="1">
+        <div class="snap-panel-number">02</div>
+        <div class="snap-panel-content">
+            <div class="snap-panel-label">_002 / Processus</div>
+            <h2 class="snap-panel-title">Concevoir avec<br>intention.</h2>
+            <p class="snap-panel-desc">On itère vite et on construit avec un but. Chaque élément a une fonction, chaque interaction raconte une histoire.</p>
+        </div>
+    </section>
+    <section class="snap-panel" data-snap="2">
+        <div class="snap-panel-number">03</div>
+        <div class="snap-panel-content">
+            <div class="snap-panel-label">_003 / Livraison</div>
+            <h2 class="snap-panel-title">Lancer, mesurer,<br>évoluer.</h2>
+            <p class="snap-panel-desc">On ne livre pas pour disparaître. On suit les résultats, on optimise et on grandit aux côtés de votre marque.</p>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="testimonials-label reveal">TÉMOIGNAGES</div>
+        <h2 class="testimonials-title reveal">Des marques qui n'ont pas peur de se démarquer nous font confiance.</h2>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card fly-card" data-fly="left">
+                <div class="testimonial-img">
+                    <img src="https://picsum.photos/seed/sarah/600/500" alt="Sarah Conor">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-name">Sarah Conor</div>
+                    <div class="testimonial-role">Founder, Clonify</div>
+                </div>
+            </div>
+            <div class="testimonial-card fly-card" data-fly="right">
+                <div class="testimonial-img">
+                    <img src="https://picsum.photos/seed/bruce/600/500" alt="Bruce Lee">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-name">Bruce Lee</div>
+                    <div class="testimonial-role">Design Director, Maiz</div>
+                </div>
+            </div>
+            <div class="testimonial-card fly-card" data-fly="left">
+                <div class="testimonial-img">
+                    <img src="https://picsum.photos/seed/john/600/500" alt="John Headphone">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-name">John Headphone</div>
+                    <div class="testimonial-role">UFO, Marcom</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="faq-label reveal">FAQ</div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Qu'est-ce qui est inclus dans le forfait mensuel ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Chaque forfait mensuel inclut un nombre défini d'heures de design ou développement, un chef de projet dédié, des mises à jour hebdomadaires et un support prioritaire. On adapte tout à vos besoins.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Combien de temps prend un projet en général ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Ça dépend de l'ampleur du projet, mais la plupart des sites vitrines prennent 2-3 semaines, et les projets plus complexes de 3 à 6 semaines. On vous donne toujours un planning clair dès le départ.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Vous proposez un suivi après la mise en ligne ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Oui, on propose des forfaits de maintenance et de support pour que votre site reste performant et évolue avec vos besoins.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Je peux vous engager juste pour un logo ou un projet ponctuel ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Oui &mdash; on prend des projets ponctuels comme des logos, des landing pages ou des campagnes ads. Si le projet nous parle, on fonce.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Sur quelles plateformes vous construisez les sites ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>On travaille principalement avec WordPress, Framer et Webflow &mdash; mais on s'adapte selon vos besoins et votre stack technique.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Comment fonctionnent les paiements ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Pour les projets au forfait, on divise en 50% à la commande et 50% à la livraison. Pour les abonnements mensuels, le paiement se fait en début de cycle.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Et si le premier concept ne me plaît pas ?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Pas de souci &mdash; ça fait partie du processus. On inclut plusieurs tours de révisions pour s'assurer que le résultat final vous convient parfaitement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+        <div class="footer-glow"></div>
+        <div class="footer-big-logo"><img src="image/En-tête (4).png" alt="Acco" style="height: 80px; width: auto; filter: brightness(0) invert(1);"></div>
+
+        <div class="footer-newsletter">
+            <h3>Newsletter</h3>
+            <p>Les dernières actus, par notre équipe.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault()">
+                <input type="email" placeholder="Votre email">
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+
+        <a href="mailto:contact@acco.fr" class="footer-email">contact@acco.fr</a>
+
+        <div class="footer-links">
+            <a href="#projects">Projets</a>
+            <a href="#about">À propos</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-social">
+                IG <span>/</span> LI <span>/</span> X
+            </div>
+            <div class="footer-copyright">&copy;25 Acco</div>
+        </div>
+    </footer>
+
+    <script>
+        // SCROLL REVEAL
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // NAVBAR SCROLL
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // MOBILE MENU
+        function toggleMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+        }
+
+        // SNAP SCROLL PANELS
+        const snapPanels = document.querySelectorAll('.snap-panel[data-snap]');
+        const snapDots = document.getElementById('snapDots');
+        const dots = document.querySelectorAll('.snap-dot');
+        let snapLocked = false;
+
+        function isInSnapZone() {
+            const first = snapPanels[0].getBoundingClientRect();
+            const last = snapPanels[snapPanels.length - 1].getBoundingClientRect();
+            // We're in the snap zone if any panel overlaps the viewport significantly
+            return first.top < window.innerHeight * 0.8 && last.bottom > window.innerHeight * 0.2;
+        }
+
+        function getClosestPanel() {
+            let closest = 0;
+            let minDist = Infinity;
+            snapPanels.forEach((p, i) => {
+                const dist = Math.abs(p.getBoundingClientRect().top);
+                if (dist < minDist) { minDist = dist; closest = i; }
+            });
+            return closest;
+        }
+
+        function snapTo(index) {
+            if (index < 0 || index >= snapPanels.length) return;
+            snapLocked = true;
+            snapPanels[index].scrollIntoView({ behavior: 'smooth' });
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+            setTimeout(() => { snapLocked = false; }, 900);
+        }
+
+        function exitSnapDown() {
+            snapLocked = true;
+            let target = snapPanels[snapPanels.length - 1].nextElementSibling;
+            while (target && target.id === 'snapDots') target = target.nextElementSibling;
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => { snapLocked = false; }, 900);
+        }
+
+        function exitSnapUp() {
+            snapLocked = true;
+            const prevEl = snapPanels[0].previousElementSibling;
+            if (prevEl) prevEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            setTimeout(() => { snapLocked = false; }, 900);
+        }
+
+        // Show/hide dots
+        const panelObservers = new IntersectionObserver(() => {
+            let visible = false;
+            snapPanels.forEach(p => {
+                const r = p.getBoundingClientRect();
+                if (r.top < window.innerHeight && r.bottom > 0) visible = true;
+            });
+            snapDots.classList.toggle('active', visible);
+        }, { threshold: 0.3 });
+        snapPanels.forEach(p => panelObservers.observe(p));
+
+        // Wheel event — intercept and snap
+        window.addEventListener('wheel', (e) => {
+            if (snapLocked) { e.preventDefault(); return; }
+            if (!isInSnapZone()) return;
+
+            e.preventDefault();
+            const idx = getClosestPanel();
+
+            if (e.deltaY > 0) {
+                // Scrolling down
+                const rect = snapPanels[idx].getBoundingClientRect();
+                if (rect.top > 10) {
+                    // Current panel not yet reached — snap to it
+                    snapTo(idx);
+                } else if (idx < snapPanels.length - 1) {
+                    snapTo(idx + 1);
+                } else {
+                    exitSnapDown();
+                }
+            } else {
+                // Scrolling up
+                const rect = snapPanels[idx].getBoundingClientRect();
+                if (rect.top < -10) {
+                    // Current panel passed — snap back to it
+                    snapTo(idx);
+                } else if (idx > 0) {
+                    snapTo(idx - 1);
+                } else {
+                    exitSnapUp();
+                }
+            }
+        }, { passive: false });
+
+        // Touch support
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (snapLocked && isInSnapZone()) e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchend', (e) => {
+            if (snapLocked) return;
+            if (!isInSnapZone()) return;
+
+            const deltaY = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(deltaY) < 30) return;
+
+            const idx = getClosestPanel();
+
+            if (deltaY > 0) {
+                const rect = snapPanels[idx].getBoundingClientRect();
+                if (rect.top > 10) { snapTo(idx); }
+                else if (idx < snapPanels.length - 1) { snapTo(idx + 1); }
+                else { exitSnapDown(); }
+            } else {
+                const rect = snapPanels[idx].getBoundingClientRect();
+                if (rect.top < -10) { snapTo(idx); }
+                else if (idx > 0) { snapTo(idx - 1); }
+                else { exitSnapUp(); }
+            }
+        }, { passive: true });
+
+        // Dot click
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => snapTo(parseInt(dot.dataset.index)));
+        });
+
+        // Update dots on scroll
+        window.addEventListener('scroll', () => {
+            if (isInSnapZone()) {
+                const idx = getClosestPanel();
+                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+            }
+        });
+
+        // Auto-snap when scroll stops in snap zone
+        let snapTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(snapTimeout);
+            if (snapLocked) return;
+            snapTimeout = setTimeout(() => {
+                if (isInSnapZone()) {
+                    const idx = getClosestPanel();
+                    const rect = snapPanels[idx].getBoundingClientRect();
+                    if (Math.abs(rect.top) > 5) {
+                        snapTo(idx);
+                    }
+                }
+            }, 150);
+        });
+
+        // FAQ
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            const wasActive = item.classList.contains('active');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+            // Toggle clicked
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // PARALLAX on hero images
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroImgs = document.querySelectorAll('.hero-img');
+            if (scrollY < window.innerHeight) {
+                heroImgs.forEach((img, i) => {
+                    const speed = 0.1 + (i * 0.05);
+                    img.style.transform = `translateY(${scrollY * speed}px) ${i === 0 ? 'rotate(-8deg)' : i === 2 ? 'rotate(8deg)' : 'translateX(-50%)'}`;
+                });
+            }
+        });
+
+        // STAT COUNTER ANIMATION
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(el => statObserver.observe(el));
+
+        function animateCounter(el) {
+            const text = el.textContent;
+            const hasM = text.includes('m');
+            const hasPercent = text.includes('%');
+            const numericVal = parseInt(text.replace(/[^0-9]/g, ''));
+
+            let target;
+            let suffix = '';
+            let prefix = '';
+
+            if (hasM) {
+                target = 3;
+                suffix = 'm+';
+            } else if (hasPercent) {
+                target = numericVal;
+                suffix = '%';
+            } else {
+                target = numericVal;
+            }
+
+            let current = 0;
+            const duration = 2000;
+            const step = target / (duration / 16);
+
+            function update() {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    el.textContent = prefix + current + suffix;
+                    return;
+                }
+                el.textContent = prefix + Math.floor(current) + suffix;
+                requestAnimationFrame(update);
+            }
+
+            update();
+        }
+
+        // PORTFOLIO CAROUSEL — infinite loop
+        (function() {
+            const track = document.getElementById('portfolioTrack');
+            const indicators = document.getElementById('portfolioIndicators');
+            if (!track) return;
+
+            const origItems = Array.from(track.querySelectorAll('.portfolio-item'));
+            const total = origItems.length;
+            if (!total) return;
+
+            // Clone all items before and after for seamless infinite loop
+            origItems.forEach(item => {
+                const c = item.cloneNode(true);
+                c.classList.add('clone');
+                c.removeAttribute('data-index');
+                track.appendChild(c);
+            });
+            origItems.forEach(item => {
+                const c = item.cloneNode(true);
+                c.classList.add('clone');
+                c.removeAttribute('data-index');
+                track.insertBefore(c, track.firstChild);
+            });
+
+            const allItems = Array.from(track.querySelectorAll('.portfolio-item'));
+            // pointer starts at the first original (after clones_before)
+            let pointer = total;
+            let autoplayTimer;
+            let jumping = false;
+
+            // Create dots
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'portfolio-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    pointer = total + i;
+                    slide(true);
+                    resetAutoplay();
+                });
+                indicators.appendChild(dot);
+            }
+
+            function getGap() {
+                return parseFloat(getComputedStyle(track).gap) || 20;
+            }
+
+            function getItemW() {
+                return allItems[0].offsetWidth + getGap();
+            }
+
+            function slide(animate) {
+                const center = track.parentElement.offsetWidth / 2;
+                const iw = getItemW();
+                const half = allItems[0].offsetWidth / 2;
+                const tx = center - pointer * iw - half;
+
+                if (animate) {
+                    track.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                } else {
+                    track.style.transition = 'none';
+                }
+                track.style.transform = `translateX(${tx}px)`;
+
+                // Active state
+                allItems.forEach((item, i) => item.classList.toggle('active', i === pointer));
+
+                // Dots
+                const ri = ((pointer - total) % total + total) % total;
+                indicators.querySelectorAll('.portfolio-dot').forEach((d, i) => d.classList.toggle('active', i === ri));
+            }
+
+            // After slide animation, jump to real item if on a clone
+            track.addEventListener('transitionend', (e) => {
+                // Only react to the track's own transform transition, not children
+                if (e.target !== track) return;
+                if (jumping) return;
+                if (pointer >= total * 2) {
+                    jumping = true;
+                    pointer = pointer - total;
+                    slide(false);
+                    void track.offsetHeight;
+                    jumping = false;
+                } else if (pointer < total) {
+                    jumping = true;
+                    pointer = pointer + total;
+                    slide(false);
+                    void track.offsetHeight;
+                    jumping = false;
+                }
+            });
+
+            function goNext() {
+                pointer++;
+                slide(true);
+            }
+
+            function goPrev() {
+                pointer--;
+                slide(true);
+            }
+
+            function resetAutoplay() {
+                clearInterval(autoplayTimer);
+                autoplayTimer = setInterval(goNext, 3000);
+            }
+
+            // Touch/swipe
+            let touchStartX = 0;
+            track.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+                clearInterval(autoplayTimer);
+            }, { passive: true });
+
+            track.addEventListener('touchend', e => {
+                const diff = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(diff) > 40) {
+                    if (diff < 0) goNext();
+                    else goPrev();
+                }
+                resetAutoplay();
+            }, { passive: true });
+
+            // Click to center — move one step at a time for natural feel
+            allItems.forEach((item, i) => {
+                item.addEventListener('click', () => {
+                    if (i === pointer) return;
+                    if (i > pointer) goNext();
+                    else goPrev();
+                    resetAutoplay();
+                });
+            });
+
+            window.addEventListener('resize', () => slide(false));
+
+            // Scroll-linked carousel: scroll position in wrapper controls which item is active
+            const wrapper = document.getElementById('portfolioWrapper');
+            const scrollSteps = 3;
+            let lastScrollStep = -1;
+
+            function onScrollUpdate() {
+                if (!wrapper) return;
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const scrolled = -wrapperRect.top; // how far we've scrolled into the wrapper
+                const scrollRange = wrapper.offsetHeight - window.innerHeight;
+                if (scrollRange <= 0) return;
+
+                const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+                const step = Math.min(scrollSteps - 1, Math.floor(progress * scrollSteps));
+
+                if (step !== lastScrollStep && step >= 0 && step < scrollSteps) {
+                    const diff = step - lastScrollStep;
+                    if (lastScrollStep === -1) {
+                        // Initial position, no animation
+                    } else if (diff > 0) {
+                        for (let i = 0; i < diff; i++) goNext();
+                    } else {
+                        for (let i = 0; i < -diff; i++) goPrev();
+                    }
+                    lastScrollStep = step;
+                    resetAutoplay();
+                }
+            }
+
+            window.addEventListener('scroll', onScrollUpdate, { passive: true });
+
+            slide(false);
+            resetAutoplay();
+        })();
+
+        // Fly away cards on scroll
+        (function() {
+            const flyCards = document.querySelectorAll('.fly-card');
+            if (!flyCards.length) return;
+
+            function updateFlyCards() {
+                const windowH = window.innerHeight;
+
+                flyCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardTop = rect.top;
+
+                    // progress: 0 = card is fully visible, 1 = card top has reached top of viewport
+                    // Animation starts when top of card goes above 30% of viewport
+                    const triggerLine = windowH * 0.3;
+                    let progress = 0;
+
+                    if (cardTop < triggerLine) {
+                        progress = Math.min(1, (triggerLine - cardTop) / (windowH * 0.4));
+                    }
+
+                    const direction = card.dataset.fly === 'left' ? -1 : 1;
+                    const translateX = direction * progress * 250;
+                    const translateY = -progress * 150;
+                    const rotate = direction * progress * 20;
+                    const opacity = 1 - progress;
+                    const scale = 1 - progress * 0.15;
+
+                    card.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg) scale(${scale})`;
+                    card.style.opacity = Math.max(0, opacity);
+                });
+            }
+
+            window.addEventListener('scroll', updateFlyCards, { passive: true });
+            updateFlyCards();
+        })();
+    </script>
+</body>
+</html>

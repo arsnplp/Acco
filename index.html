@@ -36,6 +36,8 @@
             color: var(--text-white);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            max-width: 100vw;
+            min-width: 320px;
         }
 
         h1, h2, h3, .section-title, .big-text, .snap-panel-title,
@@ -747,8 +749,9 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            transition: transform 0.1s linear, opacity 0.1s linear;
             will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .testimonial-card.fly-left {
@@ -908,8 +911,9 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
+            transform: translateZ(0);
         }
 
         .portfolio-item {
@@ -917,17 +921,18 @@
             border-radius: 16px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: scale(0.85);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                        opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: scale(0.85) translateZ(0);
             opacity: 0.5;
             filter: brightness(0.6);
             cursor: pointer;
+            backface-visibility: hidden;
         }
 
         .portfolio-item.active {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
             opacity: 1;
             filter: brightness(1);
             z-index: 2;
@@ -2188,29 +2193,34 @@
             const wrapper = document.getElementById('portfolioWrapper');
             const scrollSteps = 3;
             let lastScrollStep = -1;
+            let scrollQueued = false;
 
             function onScrollUpdate() {
-                if (!wrapper) return;
-                const wrapperRect = wrapper.getBoundingClientRect();
-                const scrolled = -wrapperRect.top; // how far we've scrolled into the wrapper
-                const scrollRange = wrapper.offsetHeight - window.innerHeight;
-                if (scrollRange <= 0) return;
+                if (!wrapper || scrollQueued) return;
+                scrollQueued = true;
+                requestAnimationFrame(() => {
+                    scrollQueued = false;
+                    const wrapperRect = wrapper.getBoundingClientRect();
+                    const scrolled = -wrapperRect.top;
+                    const scrollRange = wrapper.offsetHeight - window.innerHeight;
+                    if (scrollRange <= 0) return;
 
-                const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
-                const step = Math.min(scrollSteps - 1, Math.floor(progress * scrollSteps));
+                    const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+                    const step = Math.min(scrollSteps - 1, Math.floor(progress * scrollSteps));
 
-                if (step !== lastScrollStep && step >= 0 && step < scrollSteps) {
-                    const diff = step - lastScrollStep;
-                    if (lastScrollStep === -1) {
-                        // Initial position, no animation
-                    } else if (diff > 0) {
-                        for (let i = 0; i < diff; i++) goNext();
-                    } else {
-                        for (let i = 0; i < -diff; i++) goPrev();
+                    if (step !== lastScrollStep && step >= 0 && step < scrollSteps) {
+                        const diff = step - lastScrollStep;
+                        if (lastScrollStep === -1) {
+                            // Initial position
+                        } else if (diff > 0) {
+                            for (let i = 0; i < diff; i++) goNext();
+                        } else {
+                            for (let i = 0; i < -diff; i++) goPrev();
+                        }
+                        lastScrollStep = step;
+                        resetAutoplay();
                     }
-                    lastScrollStep = step;
-                    resetAutoplay();
-                }
+                });
             }
 
             window.addEventListener('scroll', onScrollUpdate, { passive: true });
@@ -2219,41 +2229,63 @@
             resetAutoplay();
         })();
 
-        // Fly away cards on scroll
+        // Fly away cards on scroll — smooth with lerp
         (function() {
             const flyCards = document.querySelectorAll('.fly-card');
             if (!flyCards.length) return;
 
-            function updateFlyCards() {
+            // Store current animated values per card
+            const cardStates = Array.from(flyCards).map(() => ({
+                currentX: 0, currentY: 0, currentR: 0, currentO: 1, currentS: 1,
+                targetX: 0, targetY: 0, targetR: 0, targetO: 1, targetS: 1
+            }));
+
+            const lerpSpeed = 0.08;
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function updateTargets() {
                 const windowH = window.innerHeight;
-
-                flyCards.forEach(card => {
+                flyCards.forEach((card, i) => {
                     const rect = card.getBoundingClientRect();
-                    const cardTop = rect.top;
-
-                    // progress: 0 = card is fully visible, 1 = card top has reached top of viewport
-                    // Animation starts when top of card goes above 30% of viewport
                     const triggerLine = windowH * 0.3;
                     let progress = 0;
-
-                    if (cardTop < triggerLine) {
-                        progress = Math.min(1, (triggerLine - cardTop) / (windowH * 0.4));
+                    if (rect.top < triggerLine) {
+                        progress = Math.min(1, (triggerLine - rect.top) / (windowH * 0.4));
                     }
-
-                    const direction = card.dataset.fly === 'left' ? -1 : 1;
-                    const translateX = direction * progress * 250;
-                    const translateY = -progress * 150;
-                    const rotate = direction * progress * 20;
-                    const opacity = 1 - progress;
-                    const scale = 1 - progress * 0.15;
-
-                    card.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg) scale(${scale})`;
-                    card.style.opacity = Math.max(0, opacity);
+                    const dir = card.dataset.fly === 'left' ? -1 : 1;
+                    cardStates[i].targetX = dir * progress * 250;
+                    cardStates[i].targetY = -progress * 150;
+                    cardStates[i].targetR = dir * progress * 20;
+                    cardStates[i].targetO = 1 - progress;
+                    cardStates[i].targetS = 1 - progress * 0.15;
                 });
             }
 
-            window.addEventListener('scroll', updateFlyCards, { passive: true });
-            updateFlyCards();
+            function animate() {
+                let needsUpdate = false;
+                flyCards.forEach((card, i) => {
+                    const s = cardStates[i];
+                    s.currentX = lerp(s.currentX, s.targetX, lerpSpeed);
+                    s.currentY = lerp(s.currentY, s.targetY, lerpSpeed);
+                    s.currentR = lerp(s.currentR, s.targetR, lerpSpeed);
+                    s.currentO = lerp(s.currentO, s.targetO, lerpSpeed);
+                    s.currentS = lerp(s.currentS, s.targetS, lerpSpeed);
+
+                    card.style.transform = `translate3d(${s.currentX}px, ${s.currentY}px, 0) rotate(${s.currentR}deg) scale(${s.currentS})`;
+                    card.style.opacity = Math.max(0, s.currentO);
+
+                    if (Math.abs(s.currentX - s.targetX) > 0.5 ||
+                        Math.abs(s.currentY - s.targetY) > 0.5 ||
+                        Math.abs(s.currentO - s.targetO) > 0.01) {
+                        needsUpdate = true;
+                    }
+                });
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('scroll', updateTargets, { passive: true });
+            updateTargets();
+            requestAnimationFrame(animate);
         })();
     </script>
 </body>

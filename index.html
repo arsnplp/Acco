@@ -2137,18 +2137,100 @@
         const snapSwiper = new Swiper('#snapSwiper', {
             direction: 'vertical',
             speed: 800,
-            grabCursor: true,
-            mousewheel: {
-                releaseOnEdges: true,
-                forceToAxis: true,
-            },
+            mousewheel: false, // We handle wheel manually
             pagination: {
                 el: '#snapSwiper .swiper-pagination',
                 clickable: true,
             },
-            parallax: true,
             effect: 'slide',
         });
+
+        // Intercept page scroll when snap section is in view
+        (function() {
+            const section = document.getElementById('snapSection');
+            if (!section) return;
+
+            let locked = false;
+            let cooldown = false;
+
+            window.addEventListener('wheel', (e) => {
+                const rect = section.getBoundingClientRect();
+                const inView = rect.top <= 5 && rect.bottom >= window.innerHeight - 5;
+
+                if (!inView && !locked) return;
+
+                // First time entering the section — lock and snap to it
+                if (!locked && rect.top <= 5 && rect.top > -50) {
+                    locked = true;
+                    section.scrollIntoView({ behavior: 'instant' });
+                }
+
+                if (!locked) return;
+                if (cooldown) { e.preventDefault(); return; }
+
+                const isDown = e.deltaY > 0;
+                const isUp = e.deltaY < 0;
+                const isFirst = snapSwiper.isBeginning;
+                const isLast = snapSwiper.isEnd;
+
+                // Release scroll: going up on first slide or down on last
+                if (isUp && isFirst) {
+                    locked = false;
+                    return; // let page scroll
+                }
+                if (isDown && isLast) {
+                    locked = false;
+                    return; // let page scroll
+                }
+
+                // Otherwise capture and navigate slides
+                e.preventDefault();
+                cooldown = true;
+
+                if (isDown) snapSwiper.slideNext();
+                else snapSwiper.slidePrev();
+
+                setTimeout(() => { cooldown = false; }, 900);
+            }, { passive: false });
+
+            // Touch support
+            let touchY = 0;
+            window.addEventListener('touchstart', (e) => {
+                touchY = e.touches[0].clientY;
+            }, { passive: true });
+
+            window.addEventListener('touchend', (e) => {
+                const rect = section.getBoundingClientRect();
+                const inView = rect.top <= 5 && rect.bottom >= window.innerHeight - 5;
+                if (!inView && !locked) return;
+
+                const diff = touchY - e.changedTouches[0].clientY;
+                if (Math.abs(diff) < 30) return;
+
+                if (!locked) {
+                    locked = true;
+                    section.scrollIntoView({ behavior: 'instant' });
+                }
+
+                const isDown = diff > 0;
+                const isUp = diff < 0;
+
+                if (isUp && snapSwiper.isBeginning) { locked = false; return; }
+                if (isDown && snapSwiper.isEnd) { locked = false; return; }
+
+                if (isDown) snapSwiper.slideNext();
+                else snapSwiper.slidePrev();
+            }, { passive: true });
+
+            // Re-lock when scrolling back into view
+            window.addEventListener('scroll', () => {
+                if (locked) return;
+                const rect = section.getBoundingClientRect();
+                if (Math.abs(rect.top) < 3) {
+                    locked = true;
+                }
+            }, { passive: true });
+        })();
     </script>
 </body>
 </html>

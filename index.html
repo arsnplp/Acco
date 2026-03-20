@@ -2159,18 +2159,13 @@
             const html = document.documentElement;
 
             function lockSection() {
-                if (locked) return;
+                if (locked || unlockCooldown) return;
                 locked = true;
                 accumulatedDelta = 0;
-                // Temporarily disable smooth scroll so snap is instant
+                // Snap to section top instantly
                 html.style.scrollBehavior = 'auto';
-                html.scrollTop = section.offsetTop;
-                // Freeze page scroll by locking html overflow
-                html.style.overflowY = 'hidden';
-                // Restore smooth scroll after lock
-                requestAnimationFrame(() => {
-                    html.style.scrollBehavior = '';
-                });
+                window.scrollTo(0, section.offsetTop);
+                html.style.scrollBehavior = '';
             }
 
             function unlockSection() {
@@ -2178,22 +2173,30 @@
                 locked = false;
                 unlockCooldown = true;
                 accumulatedDelta = 0;
-                html.style.overflowY = '';
-                setTimeout(() => { unlockCooldown = false; }, 800);
+                setTimeout(() => { unlockCooldown = false; }, 1000);
             }
 
-            // Scroll listener: detect when section enters viewport center
+            // Scroll listener: detect when section enters viewport OR re-snap if locked
             window.addEventListener('scroll', () => {
-                if (locked || unlockCooldown) return;
+                if (locked) {
+                    // Re-snap if browser somehow scrolled while locked
+                    const currentTop = section.getBoundingClientRect().top;
+                    if (Math.abs(currentTop) > 2) {
+                        html.style.scrollBehavior = 'auto';
+                        window.scrollTo(0, section.offsetTop);
+                        html.style.scrollBehavior = '';
+                    }
+                    return;
+                }
+                if (unlockCooldown) return;
                 const rect = section.getBoundingClientRect();
                 if (rect.top <= 50 && rect.top >= -50) {
                     lockSection();
                 }
             }, { passive: true });
 
-            // Wheel handler: capture scroll when locked, navigate slides
+            // === WHEEL (desktop/trackpad) ===
             window.addEventListener('wheel', (e) => {
-                // If not locked, try to lock if section is near
                 if (!locked) {
                     if (unlockCooldown) return;
                     const rect = section.getBoundingClientRect();
@@ -2204,11 +2207,9 @@
                     return;
                 }
 
-                // Locked: always prevent page scroll
                 e.preventDefault();
                 if (transitioning) return;
 
-                // Accumulate delta (handles trackpad inertia)
                 accumulatedDelta += e.deltaY;
                 clearTimeout(deltaResetTimer);
                 deltaResetTimer = setTimeout(() => { accumulatedDelta = 0; }, 200);
@@ -2219,41 +2220,65 @@
                 const isUp = accumulatedDelta < 0;
                 accumulatedDelta = 0;
 
-                // Edge detection: unlock and release scroll
                 if (isUp && snapSwiper.isBeginning) { unlockSection(); return; }
                 if (isDown && snapSwiper.isEnd) { unlockSection(); return; }
 
-                // Navigate slides
                 transitioning = true;
                 if (isDown) snapSwiper.slideNext();
                 else snapSwiper.slidePrev();
                 setTimeout(() => { transitioning = false; }, 850);
             }, { passive: false });
 
-            // Touch support
-            let touchY = 0;
-            window.addEventListener('touchstart', (e) => {
-                touchY = e.touches[0].clientY;
-            }, { passive: true });
+            // === TOUCH (mobile) ===
+            let touchStartY = 0;
+            let touchCurrentY = 0;
+            let touchLocked = false; // separate flag for touch gesture tracking
 
-            window.addEventListener('touchmove', (e) => {
-                if (!locked) {
+            window.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                touchCurrentY = touchStartY;
+
+                // Check if we should lock on touch start
+                if (!locked && !unlockCooldown) {
                     const rect = section.getBoundingClientRect();
-                    if (rect.top <= 30 && rect.top >= -30) {
+                    if (rect.top <= 50 && rect.top >= -50) {
                         lockSection();
                     }
                 }
-                if (locked) e.preventDefault();
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                touchCurrentY = e.touches[0].clientY;
+
+                if (!locked) return; // let page scroll normally
+
+                const diff = touchStartY - touchCurrentY;
+
+                // On edge slides, allow native scroll if swiping past edge
+                if (diff < -30 && snapSwiper.isBeginning) {
+                    // Swiping down on first slide — unlock
+                    unlockSection();
+                    return;
+                }
+                if (diff > 30 && snapSwiper.isEnd) {
+                    // Swiping up on last slide — unlock
+                    unlockSection();
+                    return;
+                }
+
+                // Otherwise block page scroll so Swiper can handle it
+                e.preventDefault();
             }, { passive: false });
 
             window.addEventListener('touchend', (e) => {
                 if (!locked) return;
-                const diff = touchY - e.changedTouches[0].clientY;
-                if (Math.abs(diff) < 40) return;
+                const diff = touchStartY - (e.changedTouches[0]?.clientY ?? touchCurrentY);
+                if (Math.abs(diff) < 30) return;
 
                 const isDown = diff > 0;
                 const isUp = diff < 0;
 
+                // Edge unlock (backup in case touchmove didn't catch it)
                 if (isUp && snapSwiper.isBeginning) { unlockSection(); return; }
                 if (isDown && snapSwiper.isEnd) { unlockSection(); return; }
 

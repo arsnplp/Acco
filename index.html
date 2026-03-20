@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acco - Agence Web Paris</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -621,20 +620,9 @@
         }
 
         /* SNAP SCROLL SECTION */
-        /* SNAP PANELS — Swiper vertical */
-        .snap-swiper-wrap {
-            height: 100vh;
-            width: 100%;
-            position: relative;
-        }
-
-        .snap-swiper-wrap .swiper {
-            height: 100%;
-            width: 100%;
-        }
-
+        /* SNAP PANELS — normal sections with scroll snap */
         .snap-panel {
-            height: 100%;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -672,17 +660,6 @@
             line-height: 1.6;
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        #snapSwiper .swiper-pagination-bullet {
-            background: rgba(255, 255, 255, 0.3);
-            opacity: 1;
-            width: 10px;
-            height: 10px;
-        }
-
-        #snapSwiper .swiper-pagination-bullet-active {
-            background: #fff;
         }
 
         .snap-panel-number {
@@ -1604,44 +1581,33 @@
         </div>
     </section>
 
-    <!-- SNAP SCROLL PANELS — Swiper vertical -->
-    <div class="snap-swiper-wrap" id="snapSection">
-        <div class="swiper" id="snapSwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <section class="snap-panel" id="approach" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a1028 50%, #0e0e0f 100%);">
-                        <div class="snap-panel-number">01</div>
-                        <div class="snap-panel-content">
-                            <div class="snap-panel-label">_001 / Approche</div>
-                            <h2 class="snap-panel-title">La stratégie d'abord,<br>les pixels ensuite.</h2>
-                            <p class="snap-panel-desc">Chaque projet commence par une recherche approfondie et une stratégie claire. On s'aligne sur les objectifs avant de poser le moindre pixel.</p>
-                        </div>
-                    </section>
-                </div>
-                <div class="swiper-slide">
-                    <section class="snap-panel" style="background: linear-gradient(135deg, #0e0e0f 0%, #0f1a1a 50%, #0e0e0f 100%);">
-                        <div class="snap-panel-number">02</div>
-                        <div class="snap-panel-content">
-                            <div class="snap-panel-label">_002 / Processus</div>
-                            <h2 class="snap-panel-title">Concevoir avec<br>intention.</h2>
-                            <p class="snap-panel-desc">On itère vite et on construit avec un but. Chaque élément a une fonction, chaque interaction raconte une histoire.</p>
-                        </div>
-                    </section>
-                </div>
-                <div class="swiper-slide">
-                    <section class="snap-panel" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a160f 50%, #0e0e0f 100%);">
-                        <div class="snap-panel-number">03</div>
-                        <div class="snap-panel-content">
-                            <div class="snap-panel-label">_003 / Livraison</div>
-                            <h2 class="snap-panel-title">Lancer, mesurer,<br>évoluer.</h2>
-                            <p class="snap-panel-desc">On ne livre pas pour disparaître. On suit les résultats, on optimise et on grandit aux côtés de votre marque.</p>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
+    <!-- SNAP SCROLL PANELS — 3 full-screen sections -->
+    <section class="snap-panel" data-snap="0" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a1028 50%, #0e0e0f 100%);">
+        <div class="snap-panel-number">01</div>
+        <div class="snap-panel-content">
+            <div class="snap-panel-label">_001 / Approche</div>
+            <h2 class="snap-panel-title">La stratégie d'abord,<br>les pixels ensuite.</h2>
+            <p class="snap-panel-desc">Chaque projet commence par une recherche approfondie et une stratégie claire. On s'aligne sur les objectifs avant de poser le moindre pixel.</p>
         </div>
-    </div>
+    </section>
+
+    <section class="snap-panel" data-snap="1" style="background: linear-gradient(135deg, #0e0e0f 0%, #0f1a1a 50%, #0e0e0f 100%);">
+        <div class="snap-panel-number">02</div>
+        <div class="snap-panel-content">
+            <div class="snap-panel-label">_002 / Processus</div>
+            <h2 class="snap-panel-title">Concevoir avec<br>intention.</h2>
+            <p class="snap-panel-desc">On itère vite et on construit avec un but. Chaque élément a une fonction, chaque interaction raconte une histoire.</p>
+        </div>
+    </section>
+
+    <section class="snap-panel" data-snap="2" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a160f 50%, #0e0e0f 100%);">
+        <div class="snap-panel-number">03</div>
+        <div class="snap-panel-content">
+            <div class="snap-panel-label">_003 / Livraison</div>
+            <h2 class="snap-panel-title">Lancer, mesurer,<br>évoluer.</h2>
+            <p class="snap-panel-desc">On ne livre pas pour disparaître. On suit les résultats, on optimise et on grandit aux côtés de votre marque.</p>
+        </div>
+    </section>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials-section" id="testimonials">
@@ -1818,8 +1784,6 @@
             const nav = document.getElementById('mobileNav');
             nav.classList.toggle('active');
         }
-
-        // SNAP PANELS — Swiper init (loaded below)
 
         // FAQ
         function toggleFaq(el) {
@@ -2131,78 +2095,83 @@
             requestAnimationFrame(animate);
         })();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Swiper vertical slider for snap panels
-        const snapSwiper = new Swiper('#snapSwiper', {
-            direction: 'vertical',
-            speed: 800,
-            mousewheel: false, // We handle wheel manually
-            pagination: {
-                el: '#snapSwiper .swiper-pagination',
-                clickable: true,
-            },
-            effect: 'slide',
-        });
-
-        // Intercept page scroll when snap section is in view
+        // SNAP SCROLL — 3 normal sections, snap between them on scroll
         (function() {
-            const section = document.getElementById('snapSection');
-            if (!section) return;
+            const panels = document.querySelectorAll('.snap-panel[data-snap]');
+            if (!panels.length) return;
 
+            const html = document.documentElement;
             let locked = false;
+            let currentIndex = 0;
             let transitioning = false;
             let unlockCooldown = false;
-            let accumulatedDelta = 0;
-            let deltaResetTimer = null;
-            const DELTA_THRESHOLD = 50;
-            const html = document.documentElement;
+            let accDelta = 0;
+            let deltaTimer = null;
+            const THRESHOLD = 50;
 
-            function lockSection() {
+            function snapTo(index) {
+                if (index < 0 || index >= panels.length) return;
+                transitioning = true;
+                currentIndex = index;
+                panels[index].scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => { transitioning = false; }, 800);
+            }
+
+            function lock(index) {
                 if (locked || unlockCooldown) return;
                 locked = true;
-                accumulatedDelta = 0;
-                // Snap to section top instantly
+                currentIndex = index;
+                accDelta = 0;
+                // Instant snap to this panel
                 html.style.scrollBehavior = 'auto';
-                window.scrollTo(0, section.offsetTop);
+                window.scrollTo(0, panels[index].offsetTop);
                 html.style.scrollBehavior = '';
             }
 
-            function unlockSection() {
+            function unlock() {
                 if (!locked) return;
                 locked = false;
                 unlockCooldown = true;
-                accumulatedDelta = 0;
-                setTimeout(() => { unlockCooldown = false; }, 1000);
+                accDelta = 0;
+                setTimeout(() => { unlockCooldown = false; }, 800);
             }
 
-            // Scroll listener: detect when section enters viewport OR re-snap if locked
+            // Detect when any snap panel enters viewport
             window.addEventListener('scroll', () => {
+                if (transitioning) return;
                 if (locked) {
-                    // Re-snap if browser somehow scrolled while locked
-                    const currentTop = section.getBoundingClientRect().top;
-                    if (Math.abs(currentTop) > 2) {
+                    // Re-snap if drifted
+                    const t = panels[currentIndex].getBoundingClientRect().top;
+                    if (Math.abs(t) > 3) {
                         html.style.scrollBehavior = 'auto';
-                        window.scrollTo(0, section.offsetTop);
+                        window.scrollTo(0, panels[currentIndex].offsetTop);
                         html.style.scrollBehavior = '';
                     }
                     return;
                 }
                 if (unlockCooldown) return;
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= 50 && rect.top >= -50) {
-                    lockSection();
+                // Check if any panel top is near viewport top
+                for (let i = 0; i < panels.length; i++) {
+                    const t = panels[i].getBoundingClientRect().top;
+                    if (t <= 50 && t >= -50) {
+                        lock(i);
+                        return;
+                    }
                 }
             }, { passive: true });
 
-            // === WHEEL (desktop/trackpad) ===
+            // === WHEEL ===
             window.addEventListener('wheel', (e) => {
                 if (!locked) {
                     if (unlockCooldown) return;
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top <= 60 && rect.top >= -60) {
-                        e.preventDefault();
-                        lockSection();
+                    for (let i = 0; i < panels.length; i++) {
+                        const t = panels[i].getBoundingClientRect().top;
+                        if (t <= 60 && t >= -60) {
+                            e.preventDefault();
+                            lock(i);
+                            return;
+                        }
                     }
                     return;
                 }
@@ -2210,83 +2179,64 @@
                 e.preventDefault();
                 if (transitioning) return;
 
-                accumulatedDelta += e.deltaY;
-                clearTimeout(deltaResetTimer);
-                deltaResetTimer = setTimeout(() => { accumulatedDelta = 0; }, 200);
+                accDelta += e.deltaY;
+                clearTimeout(deltaTimer);
+                deltaTimer = setTimeout(() => { accDelta = 0; }, 200);
 
-                if (Math.abs(accumulatedDelta) < DELTA_THRESHOLD) return;
+                if (Math.abs(accDelta) < THRESHOLD) return;
 
-                const isDown = accumulatedDelta > 0;
-                const isUp = accumulatedDelta < 0;
-                accumulatedDelta = 0;
+                const isDown = accDelta > 0;
+                const isUp = accDelta < 0;
+                accDelta = 0;
 
-                if (isUp && snapSwiper.isBeginning) { unlockSection(); return; }
-                if (isDown && snapSwiper.isEnd) { unlockSection(); return; }
+                // Scroll up on first panel → unlock, let page scroll up
+                if (isUp && currentIndex === 0) { unlock(); return; }
+                // Scroll down on last panel → unlock, let page scroll down
+                if (isDown && currentIndex === panels.length - 1) { unlock(); return; }
 
-                transitioning = true;
-                if (isDown) snapSwiper.slideNext();
-                else snapSwiper.slidePrev();
-                setTimeout(() => { transitioning = false; }, 850);
+                // Navigate between panels
+                if (isDown) snapTo(currentIndex + 1);
+                else snapTo(currentIndex - 1);
             }, { passive: false });
 
-            // === TOUCH (mobile) ===
+            // === TOUCH ===
             let touchStartY = 0;
-            let touchCurrentY = 0;
-            let touchLocked = false; // separate flag for touch gesture tracking
 
             window.addEventListener('touchstart', (e) => {
                 touchStartY = e.touches[0].clientY;
-                touchCurrentY = touchStartY;
-
-                // Check if we should lock on touch start
                 if (!locked && !unlockCooldown) {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top <= 50 && rect.top >= -50) {
-                        lockSection();
+                    for (let i = 0; i < panels.length; i++) {
+                        const t = panels[i].getBoundingClientRect().top;
+                        if (t <= 50 && t >= -50) {
+                            lock(i);
+                            return;
+                        }
                     }
                 }
             }, { passive: true });
 
             window.addEventListener('touchmove', (e) => {
-                touchCurrentY = e.touches[0].clientY;
-
-                if (!locked) return; // let page scroll normally
-
-                const diff = touchStartY - touchCurrentY;
-
-                // On edge slides, allow native scroll if swiping past edge
-                if (diff < -30 && snapSwiper.isBeginning) {
-                    // Swiping down on first slide — unlock
-                    unlockSection();
-                    return;
-                }
-                if (diff > 30 && snapSwiper.isEnd) {
-                    // Swiping up on last slide — unlock
-                    unlockSection();
-                    return;
-                }
-
-                // Otherwise block page scroll so Swiper can handle it
+                if (!locked) return;
+                const diff = touchStartY - e.touches[0].clientY;
+                // Edge: unlock if swiping past first/last
+                if (diff < -40 && currentIndex === 0) { unlock(); return; }
+                if (diff > 40 && currentIndex === panels.length - 1) { unlock(); return; }
                 e.preventDefault();
             }, { passive: false });
 
             window.addEventListener('touchend', (e) => {
-                if (!locked) return;
-                const diff = touchStartY - (e.changedTouches[0]?.clientY ?? touchCurrentY);
-                if (Math.abs(diff) < 30) return;
+                if (!locked || transitioning) return;
+                const diff = touchStartY - e.changedTouches[0].clientY;
+                if (Math.abs(diff) < 40) return;
 
                 const isDown = diff > 0;
                 const isUp = diff < 0;
 
-                // Edge unlock (backup in case touchmove didn't catch it)
-                if (isUp && snapSwiper.isBeginning) { unlockSection(); return; }
-                if (isDown && snapSwiper.isEnd) { unlockSection(); return; }
+                if (isUp && currentIndex === 0) { unlock(); return; }
+                if (isDown && currentIndex === panels.length - 1) { unlock(); return; }
 
-                if (transitioning) return;
-                transitioning = true;
-                if (isDown) snapSwiper.slideNext();
-                else snapSwiper.slidePrev();
-                setTimeout(() => { transitioning = false; }, 850);
+                if (isDown) snapTo(currentIndex + 1);
+                else snapTo(currentIndex - 1);
             }, { passive: true });
         })();
     </script>

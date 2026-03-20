@@ -28,18 +28,16 @@
 
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
 
         body {
             font-family: var(--font-main);
             background-color: var(--bg-dark);
             color: var(--text-white);
-            overflow-x: hidden;
+            overflow-x: clip;
             -webkit-font-smoothing: antialiased;
             min-width: 320px;
-            width: 100%;
-            max-width: 100%;
         }
 
         h1, h2, h3, .section-title, .big-text, .snap-panel-title,
@@ -1260,7 +1258,6 @@
     </style>
 </head>
 <body>
-<div id="site-wrapper" style="overflow-x: hidden; width: 100%; max-width: 100vw; position: relative;">
 
     <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
@@ -1426,7 +1423,7 @@
     </div>
 
     <!-- PROJECTS -->
-    <section class="section" id="projects" style="overflow: hidden;">
+    <section class="section" id="projects" style="overflow-x: clip;">
         <div class="section-header reveal">
             <div>
                 <h2 class="section-title">Projets.</h2>
@@ -1832,15 +1829,13 @@
 
         // SNAP SCROLL PANELS
         const snapPanels = document.querySelectorAll('.snap-panel[data-snap]');
-        const snapDots = document.getElementById('snapDots');
-        const dots = document.querySelectorAll('.snap-dot');
         let snapLocked = false;
 
         function isInSnapZone() {
+            if (!snapPanels.length) return false;
             const first = snapPanels[0].getBoundingClientRect();
             const last = snapPanels[snapPanels.length - 1].getBoundingClientRect();
-            // We're in the snap zone if any panel overlaps the viewport significantly
-            return first.top < window.innerHeight * 0.8 && last.bottom > window.innerHeight * 0.2;
+            return first.top < window.innerHeight * 0.5 && last.bottom > window.innerHeight * 0.5;
         }
 
         function getClosestPanel() {
@@ -1857,14 +1852,12 @@
             if (index < 0 || index >= snapPanels.length) return;
             snapLocked = true;
             snapPanels[index].scrollIntoView({ behavior: 'smooth' });
-            dots.forEach((d, i) => d.classList.toggle('active', i === index));
             setTimeout(() => { snapLocked = false; }, 900);
         }
 
         function exitSnapDown() {
             snapLocked = true;
-            let target = snapPanels[snapPanels.length - 1].nextElementSibling;
-            while (target && target.id === 'snapDots') target = target.nextElementSibling;
+            const target = snapPanels[snapPanels.length - 1].nextElementSibling;
             if (target) target.scrollIntoView({ behavior: 'smooth' });
             setTimeout(() => { snapLocked = false; }, 900);
         }
@@ -1876,17 +1869,6 @@
             setTimeout(() => { snapLocked = false; }, 900);
         }
 
-        // Show/hide dots
-        const panelObservers = new IntersectionObserver(() => {
-            let visible = false;
-            snapPanels.forEach(p => {
-                const r = p.getBoundingClientRect();
-                if (r.top < window.innerHeight && r.bottom > 0) visible = true;
-            });
-            snapDots.classList.toggle('active', visible);
-        }, { threshold: 0.3 });
-        snapPanels.forEach(p => panelObservers.observe(p));
-
         // Wheel event — intercept and snap
         window.addEventListener('wheel', (e) => {
             if (snapLocked) { e.preventDefault(); return; }
@@ -1896,10 +1878,8 @@
             const idx = getClosestPanel();
 
             if (e.deltaY > 0) {
-                // Scrolling down
                 const rect = snapPanels[idx].getBoundingClientRect();
                 if (rect.top > 10) {
-                    // Current panel not yet reached — snap to it
                     snapTo(idx);
                 } else if (idx < snapPanels.length - 1) {
                     snapTo(idx + 1);
@@ -1907,10 +1887,8 @@
                     exitSnapDown();
                 }
             } else {
-                // Scrolling up
                 const rect = snapPanels[idx].getBoundingClientRect();
                 if (rect.top < -10) {
-                    // Current panel passed — snap back to it
                     snapTo(idx);
                 } else if (idx > 0) {
                     snapTo(idx - 1);
@@ -2291,6 +2269,5 @@
             requestAnimationFrame(animate);
         })();
     </script>
-</div><!-- /site-wrapper -->
 </body>
 </html>

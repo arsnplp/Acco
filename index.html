@@ -1930,18 +1930,7 @@
             }
         }, { passive: true });
 
-        // Dot click
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => snapTo(parseInt(dot.dataset.index)));
-        });
-
-        // Update dots on scroll
-        window.addEventListener('scroll', () => {
-            if (isInSnapZone()) {
-                const idx = getClosestPanel();
-                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-            }
-        });
+        // (snap dots removed)
 
         // Auto-snap when scroll stops in snap zone
         let snapTimeout;

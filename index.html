@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acco - Agence Web Paris</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -29,7 +30,6 @@
         html {
             scroll-behavior: smooth;
             overflow-x: clip;
-            scroll-snap-type: y proximity;
         }
 
         body {
@@ -621,16 +621,25 @@
         }
 
         /* SNAP SCROLL SECTION */
-        /* SNAP PANELS */
-        .snap-panel {
+        /* SNAP PANELS — Swiper vertical */
+        .snap-swiper-wrap {
             height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .snap-swiper-wrap .swiper {
+            height: 100%;
+            width: 100%;
+        }
+
+        .snap-panel {
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
         }
 
         .snap-panel-content {
@@ -665,16 +674,15 @@
             margin: 0 auto;
         }
 
-        .snap-panel:nth-child(1) {
-            background: linear-gradient(135deg, #0e0e0f 0%, #1a1028 50%, #0e0e0f 100%);
+        #snapSwiper .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 1;
+            width: 10px;
+            height: 10px;
         }
 
-        .snap-panel:nth-child(2) {
-            background: linear-gradient(135deg, #0e0e0f 0%, #0f1a1a 50%, #0e0e0f 100%);
-        }
-
-        .snap-panel:nth-child(3) {
-            background: linear-gradient(135deg, #0e0e0f 0%, #1a160f 50%, #0e0e0f 100%);
+        #snapSwiper .swiper-pagination-bullet-active {
+            background: #fff;
         }
 
         .snap-panel-number {
@@ -1596,31 +1604,44 @@
         </div>
     </section>
 
-    <!-- SNAP SCROLL PANELS -->
-    <section class="snap-panel" data-snap="0" id="approach">
-        <div class="snap-panel-number">01</div>
-        <div class="snap-panel-content">
-            <div class="snap-panel-label">_001 / Approche</div>
-            <h2 class="snap-panel-title">La stratégie d'abord,<br>les pixels ensuite.</h2>
-            <p class="snap-panel-desc">Chaque projet commence par une recherche approfondie et une stratégie claire. On s'aligne sur les objectifs avant de poser le moindre pixel.</p>
+    <!-- SNAP SCROLL PANELS — Swiper vertical -->
+    <div class="snap-swiper-wrap" id="snapSection">
+        <div class="swiper" id="snapSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <section class="snap-panel" id="approach" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a1028 50%, #0e0e0f 100%);">
+                        <div class="snap-panel-number">01</div>
+                        <div class="snap-panel-content">
+                            <div class="snap-panel-label">_001 / Approche</div>
+                            <h2 class="snap-panel-title">La stratégie d'abord,<br>les pixels ensuite.</h2>
+                            <p class="snap-panel-desc">Chaque projet commence par une recherche approfondie et une stratégie claire. On s'aligne sur les objectifs avant de poser le moindre pixel.</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="swiper-slide">
+                    <section class="snap-panel" style="background: linear-gradient(135deg, #0e0e0f 0%, #0f1a1a 50%, #0e0e0f 100%);">
+                        <div class="snap-panel-number">02</div>
+                        <div class="snap-panel-content">
+                            <div class="snap-panel-label">_002 / Processus</div>
+                            <h2 class="snap-panel-title">Concevoir avec<br>intention.</h2>
+                            <p class="snap-panel-desc">On itère vite et on construit avec un but. Chaque élément a une fonction, chaque interaction raconte une histoire.</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="swiper-slide">
+                    <section class="snap-panel" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a160f 50%, #0e0e0f 100%);">
+                        <div class="snap-panel-number">03</div>
+                        <div class="snap-panel-content">
+                            <div class="snap-panel-label">_003 / Livraison</div>
+                            <h2 class="snap-panel-title">Lancer, mesurer,<br>évoluer.</h2>
+                            <p class="snap-panel-desc">On ne livre pas pour disparaître. On suit les résultats, on optimise et on grandit aux côtés de votre marque.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
-    </section>
-    <section class="snap-panel" data-snap="1">
-        <div class="snap-panel-number">02</div>
-        <div class="snap-panel-content">
-            <div class="snap-panel-label">_002 / Processus</div>
-            <h2 class="snap-panel-title">Concevoir avec<br>intention.</h2>
-            <p class="snap-panel-desc">On itère vite et on construit avec un but. Chaque élément a une fonction, chaque interaction raconte une histoire.</p>
-        </div>
-    </section>
-    <section class="snap-panel" data-snap="2">
-        <div class="snap-panel-number">03</div>
-        <div class="snap-panel-content">
-            <div class="snap-panel-label">_003 / Livraison</div>
-            <h2 class="snap-panel-title">Lancer, mesurer,<br>évoluer.</h2>
-            <p class="snap-panel-desc">On ne livre pas pour disparaître. On suit les résultats, on optimise et on grandit aux côtés de votre marque.</p>
-        </div>
-    </section>
+    </div>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials-section" id="testimonials">
@@ -1798,7 +1819,7 @@
             nav.classList.toggle('active');
         }
 
-        // Snap panels handled by CSS scroll-snap (native, works with inertia)
+        // SNAP PANELS — Swiper init (loaded below)
 
         // FAQ
         function toggleFaq(el) {
@@ -2109,6 +2130,25 @@
             updateTargets();
             requestAnimationFrame(animate);
         })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Swiper vertical slider for snap panels
+        const snapSwiper = new Swiper('#snapSwiper', {
+            direction: 'vertical',
+            speed: 800,
+            grabCursor: true,
+            mousewheel: {
+                releaseOnEdges: true,
+                forceToAxis: true,
+            },
+            pagination: {
+                el: '#snapSwiper .swiper-pagination',
+                clickable: true,
+            },
+            parallax: true,
+            effect: 'slide',
+        });
     </script>
 </body>
 </html>

@@ -2151,46 +2151,83 @@
             if (!section) return;
 
             let locked = false;
-            let cooldown = false;
+            let transitioning = false;
+            let unlockCooldown = false;
+            let accumulatedDelta = 0;
+            let deltaResetTimer = null;
+            const DELTA_THRESHOLD = 50;
+            const html = document.documentElement;
 
-            window.addEventListener('wheel', (e) => {
-                const rect = section.getBoundingClientRect();
-                const inView = rect.top <= 5 && rect.bottom >= window.innerHeight - 5;
+            function lockSection() {
+                if (locked) return;
+                locked = true;
+                accumulatedDelta = 0;
+                // Temporarily disable smooth scroll so snap is instant
+                html.style.scrollBehavior = 'auto';
+                html.scrollTop = section.offsetTop;
+                // Freeze page scroll by locking html overflow
+                html.style.overflowY = 'hidden';
+                // Restore smooth scroll after lock
+                requestAnimationFrame(() => {
+                    html.style.scrollBehavior = '';
+                });
+            }
 
-                if (!inView && !locked) return;
-
-                // First time entering the section — lock and snap to it
-                if (!locked && rect.top <= 5 && rect.top > -50) {
-                    locked = true;
-                    section.scrollIntoView({ behavior: 'instant' });
-                }
-
+            function unlockSection() {
                 if (!locked) return;
-                if (cooldown) { e.preventDefault(); return; }
+                locked = false;
+                unlockCooldown = true;
+                accumulatedDelta = 0;
+                html.style.overflowY = '';
+                setTimeout(() => { unlockCooldown = false; }, 800);
+            }
 
-                const isDown = e.deltaY > 0;
-                const isUp = e.deltaY < 0;
-                const isFirst = snapSwiper.isBeginning;
-                const isLast = snapSwiper.isEnd;
-
-                // Release scroll: going up on first slide or down on last
-                if (isUp && isFirst) {
-                    locked = false;
-                    return; // let page scroll
+            // Scroll listener: detect when section enters viewport center
+            window.addEventListener('scroll', () => {
+                if (locked || unlockCooldown) return;
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 50 && rect.top >= -50) {
+                    lockSection();
                 }
-                if (isDown && isLast) {
-                    locked = false;
-                    return; // let page scroll
+            }, { passive: true });
+
+            // Wheel handler: capture scroll when locked, navigate slides
+            window.addEventListener('wheel', (e) => {
+                // If not locked, try to lock if section is near
+                if (!locked) {
+                    if (unlockCooldown) return;
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 60 && rect.top >= -60) {
+                        e.preventDefault();
+                        lockSection();
+                    }
+                    return;
                 }
 
-                // Otherwise capture and navigate slides
+                // Locked: always prevent page scroll
                 e.preventDefault();
-                cooldown = true;
+                if (transitioning) return;
 
+                // Accumulate delta (handles trackpad inertia)
+                accumulatedDelta += e.deltaY;
+                clearTimeout(deltaResetTimer);
+                deltaResetTimer = setTimeout(() => { accumulatedDelta = 0; }, 200);
+
+                if (Math.abs(accumulatedDelta) < DELTA_THRESHOLD) return;
+
+                const isDown = accumulatedDelta > 0;
+                const isUp = accumulatedDelta < 0;
+                accumulatedDelta = 0;
+
+                // Edge detection: unlock and release scroll
+                if (isUp && snapSwiper.isBeginning) { unlockSection(); return; }
+                if (isDown && snapSwiper.isEnd) { unlockSection(); return; }
+
+                // Navigate slides
+                transitioning = true;
                 if (isDown) snapSwiper.slideNext();
                 else snapSwiper.slidePrev();
-
-                setTimeout(() => { cooldown = false; }, 900);
+                setTimeout(() => { transitioning = false; }, 850);
             }, { passive: false });
 
             // Touch support
@@ -2199,36 +2236,32 @@
                 touchY = e.touches[0].clientY;
             }, { passive: true });
 
-            window.addEventListener('touchend', (e) => {
-                const rect = section.getBoundingClientRect();
-                const inView = rect.top <= 5 && rect.bottom >= window.innerHeight - 5;
-                if (!inView && !locked) return;
-
-                const diff = touchY - e.changedTouches[0].clientY;
-                if (Math.abs(diff) < 30) return;
-
+            window.addEventListener('touchmove', (e) => {
                 if (!locked) {
-                    locked = true;
-                    section.scrollIntoView({ behavior: 'instant' });
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 30 && rect.top >= -30) {
+                        lockSection();
+                    }
                 }
+                if (locked) e.preventDefault();
+            }, { passive: false });
+
+            window.addEventListener('touchend', (e) => {
+                if (!locked) return;
+                const diff = touchY - e.changedTouches[0].clientY;
+                if (Math.abs(diff) < 40) return;
 
                 const isDown = diff > 0;
                 const isUp = diff < 0;
 
-                if (isUp && snapSwiper.isBeginning) { locked = false; return; }
-                if (isDown && snapSwiper.isEnd) { locked = false; return; }
+                if (isUp && snapSwiper.isBeginning) { unlockSection(); return; }
+                if (isDown && snapSwiper.isEnd) { unlockSection(); return; }
 
+                if (transitioning) return;
+                transitioning = true;
                 if (isDown) snapSwiper.slideNext();
                 else snapSwiper.slidePrev();
-            }, { passive: true });
-
-            // Re-lock when scrolling back into view
-            window.addEventListener('scroll', () => {
-                if (locked) return;
-                const rect = section.getBoundingClientRect();
-                if (Math.abs(rect.top) < 3) {
-                    locked = true;
-                }
+                setTimeout(() => { transitioning = false; }, 850);
             }, { passive: true });
         })();
     </script>

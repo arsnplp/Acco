@@ -1879,12 +1879,13 @@
                 c.removeAttribute('data-index');
                 track.appendChild(c);
             });
-            origItems.forEach(item => {
-                const c = item.cloneNode(true);
+            // Insert clones before in correct order (reversed insertion to maintain order)
+            for (let i = origItems.length - 1; i >= 0; i--) {
+                const c = origItems[i].cloneNode(true);
                 c.classList.add('clone');
                 c.removeAttribute('data-index');
                 track.insertBefore(c, track.firstChild);
-            });
+            }
 
             const allItems = Array.from(track.querySelectorAll('.portfolio-item'));
             // pointer starts at the first original (after clones_before)

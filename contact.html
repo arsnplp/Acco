@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Acco Agence Web Paris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:       #0a0a0b;
+            --bg-card:  #111113;
+            --bg-card2: #161618;
+            --white:    #ffffff;
+            --gray:     #555860;
+            --gray-lt:  #888b94;
+            --accent:   #6b8cff;
+            --border:   #1e1e22;
+            --font:     'Inter', -apple-system, sans-serif;
+            --title:    'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; overflow-x: clip; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--white);
+            overflow-x: clip;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 { font-family: var(--title); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* ─── NAVBAR ─── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            background: rgba(10,10,11,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .logo img { height: 48px; }
+        .menu-btn { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+        .menu-btn div { width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+        .menu-btn div:last-child { width: 18px; margin-left: auto; }
+
+        /* MOBILE NAV */
+        .mobile-nav {
+            position: fixed; inset: 0; background: var(--bg); z-index: 99;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px;
+            opacity: 0; pointer-events: none; transition: opacity .4s;
+        }
+        .mobile-nav.active { opacity: 1; pointer-events: all; }
+        .mobile-nav a { font-family: var(--title); font-size: 30px; font-weight: 600; opacity: .6; transition: opacity .3s; }
+        .mobile-nav a:hover { opacity: 1; }
+
+        /* ─── PAGE ─── */
+        .page-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 24px 80px;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .contact-header p.overline {
+            font-family: var(--font);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gray-lt);
+            margin-bottom: 16px;
+        }
+        .contact-header h1 {
+            font-family: var(--title);
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .contact-header p.sub {
+            font-size: 16px;
+            color: var(--gray-lt);
+            max-width: 420px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ─── FORM ─── */
+        .contact-form {
+            width: 100%;
+            max-width: 560px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .field label {
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gray-lt);
+            font-weight: 500;
+        }
+        .field input,
+        .field textarea,
+        .field select {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 15px;
+            outline: none;
+            transition: border-color .2s;
+            resize: none;
+            -webkit-appearance: none;
+        }
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: var(--gray);
+        }
+        .field input:focus,
+        .field textarea:focus,
+        .field select:focus {
+            border-color: rgba(107,140,255,.5);
+        }
+        .field textarea {
+            height: 160px;
+        }
+        .field select {
+            color: var(--gray);
+            cursor: pointer;
+        }
+        .field select option {
+            background: var(--bg-card2);
+            color: var(--white);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--white);
+            color: var(--bg);
+            border: none;
+            border-radius: 10px;
+            font-family: var(--title);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .2s, transform .15s;
+            margin-top: 4px;
+        }
+        .submit-btn:hover {
+            opacity: .88;
+        }
+        .submit-btn:active {
+            transform: scale(.98);
+        }
+
+        /* Success / Error messages */
+        .form-msg {
+            display: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .form-msg.success {
+            display: block;
+            background: rgba(107,140,255,.12);
+            border: 1px solid rgba(107,140,255,.3);
+            color: #a5b8ff;
+        }
+        .form-msg.error {
+            display: block;
+            background: rgba(212, 106, 106, .12);
+            border: 1px solid rgba(212,106,106,.3);
+            color: #e4a0a0;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            position: relative;
+            overflow: hidden;
+            padding: 80px 40px 32px;
+            border-top: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+        }
+        .footer-glow {
+            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+            width: 500px; height: 250px;
+            background: radial-gradient(ellipse, rgba(107,140,255,.12), transparent 70%);
+            filter: blur(60px); pointer-events: none;
+        }
+        .footer-logo { margin-bottom: 40px; }
+        .footer-logo img { height: 64px; filter: brightness(0) invert(1); }
+
+        .footer-nav { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+        .footer-nav a { color: var(--gray); font-size: 15px; transition: color .3s; }
+        .footer-nav a:hover { color: var(--white); }
+
+        .footer-bot {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 20px; border-top: 1px solid var(--border);
+            width: 100%;
+        }
+        .footer-soc { font-size: 13px; color: var(--gray); display: flex; gap: 6px; }
+        .footer-cr  { font-size: 13px; color: var(--gray); }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 3px; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            .navbar { padding: 16px 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer { padding: 60px 20px 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <img src="image/En-tête (11).png" alt="Acco">
+    </a>
+    <div class="menu-btn" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="index.html"         onclick="toggleMenu()">Accueil</a>
+    <a href="site-web.html"      onclick="toggleMenu()">Site Web</a>
+    <a href="branding.html"      onclick="toggleMenu()">Branding</a>
+    <a href="referencement.html" onclick="toggleMenu()">Référencement</a>
+    <a href="reseaux.html"       onclick="toggleMenu()">Réseaux Sociaux</a>
+    <a href="recrutement.html"   onclick="toggleMenu()">On recrute</a>
+    <a href="contact.html"       onclick="toggleMenu()" style="font-size:22px;">Contact</a>
+</div>
+
+
+<!-- ─── MAIN ─── -->
+<main class="page-wrap">
+
+    <div class="contact-header">
+        <p class="overline">Acco — Agence Web Paris</p>
+        <h1>On vous répond<br>sous 24h.</h1>
+        <p class="sub">Décrivez votre projet ou posez votre question, notre équipe revient vers vous rapidement.</p>
+    </div>
+
+    <!--
+        FORMSPREE — pour que le formulaire envoie des emails :
+        1. Créez un compte sur https://formspree.io (gratuit)
+        2. Créez un nouveau formulaire et copiez votre endpoint
+        3. Remplacez "https://formspree.io/f/mvzvarne" par votre URL
+    -->
+    <form
+        class="contact-form"
+        id="contactForm"
+        action="https://formspree.io/f/mvzvarne"
+        method="POST"
+    >
+        <div class="form-row">
+            <div class="field">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" placeholder="Jean Dupont" required>
+            </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="jean@exemple.fr" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="subject">Sujet</label>
+            <select id="subject" name="subject">
+                <option value="" disabled selected>Choisissez un sujet</option>
+                <option value="Site Web">Site Web</option>
+                <option value="Branding">Branding</option>
+                <option value="Référencement">Référencement</option>
+                <option value="Réseaux Sociaux">Réseaux Sociaux</option>
+                <option value="Autre">Autre</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre projet..." required></textarea>
+        </div>
+
+        <div class="form-msg" id="formMsg"></div>
+
+        <button type="submit" class="submit-btn">Envoyer le message →</button>
+    </form>
+
+</main>
+
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+    <div class="footer-glow"></div>
+
+    <div class="footer-logo">
+        <img src="image/En-tête (4).png" alt="Acco">
+    </div>
+
+    <nav class="footer-nav">
+        <a href="index.html">Accueil</a>
+        <a href="site-web.html">Site Web</a>
+        <a href="branding.html">Branding</a>
+        <a href="referencement.html">Référencement</a>
+        <a href="reseaux.html">Réseaux Sociaux</a>
+    </nav>
+
+    <div class="footer-bot">
+        <div class="footer-soc">IG <span>/</span> LI <span>/</span> X</div>
+        <div class="footer-cr">&copy;2026 Acco 360</div>
+    </div>
+</footer>
+
+
+<script>
+    function toggleMenu() {
+        document.getElementById('mobileNav').classList.toggle('active');
+    }
+
+    const form = document.getElementById('contactForm');
+    const msg  = document.getElementById('formMsg');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.submit-btn');
+        btn.textContent = 'Envoi en cours…';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+                msg.className = 'form-msg success';
+                msg.textContent = 'Message envoyé ! On vous répond sous 24h.';
+                form.reset();
+                btn.textContent = 'Message envoyé ✓';
+            } else {
+                throw new Error();
+            }
+        } catch {
+            msg.className = 'form-msg error';
+            msg.textContent = 'Une erreur est survenue. Réessayez ou écrivez-nous directement à contact@acco360.fr';
+            btn.textContent = 'Envoyer le message →';
+            btn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

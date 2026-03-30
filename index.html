@@ -23,7 +23,7 @@
             --border-color: #252729;
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-title: 'Poppins', sans-serif;
-            --font-mono: 'Chivo Mono', monospace;
+            --font-mono: 'Inter', sans-serif;
         }
 
         html {
@@ -119,9 +119,11 @@
             z-index: 999;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            gap: 30px;
+            gap: 24px;
+            padding: 100px 20px 40px;
+            overflow-y: auto;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s;
@@ -313,11 +315,24 @@
 
         /* ABOUT TEXT */
         .about-text {
-            font-size: clamp(28px, 5vw, 48px);
+            font-family: var(--font-title);
+            font-size: clamp(22px, 3.5vw, 38px);
             font-weight: 600;
-            line-height: 1.3;
-            letter-spacing: -1px;
-            max-width: 900px;
+            line-height: 1.45;
+            letter-spacing: -0.5px;
+            max-width: 860px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .about-text .about-sub {
+            display: block;
+            font-size: clamp(15px, 1.8vw, 20px);
+            font-weight: 400;
+            color: var(--text-gray);
+            margin-top: 20px;
+            line-height: 1.7;
+            letter-spacing: 0;
         }
 
         /* CLIENTS MARQUEE */
@@ -419,6 +434,9 @@
             box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
             z-index: 1;
             margin-bottom: -30px;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .project-card:nth-child(1) { top: 80px; z-index: 1; }
@@ -456,16 +474,18 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 36px;
-            font-weight: 800;
+            font-family: var(--font-title);
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            letter-spacing: -2px;
             text-shadow: none;
-            color: #000;
+            color: #ffffff;
         }
-        .project-card:nth-child(1) .project-card-logo { color: #000; }
-        .project-card:nth-child(2) .project-card-logo { color: #000; }
-        .project-card:nth-child(3) .project-card-logo { color: #000; }
-        .project-card:nth-child(4) .project-card-logo { color: #000; }
-        .project-card:nth-child(5) .project-card-logo { color: #000; }
+        .project-card:nth-child(1) .project-card-logo { color: #ffffff; }
+        .project-card:nth-child(2) .project-card-logo { color: #ffffff; }
+        .project-card:nth-child(3) .project-card-logo { color: #ffffff; }
+        .project-card:nth-child(4) .project-card-logo { color: #ffffff; }
+        .project-card:nth-child(5) .project-card-logo { color: #ffffff; }
 
         .project-card-tag {
             position: absolute;
@@ -490,10 +510,52 @@
             padding: 120px 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        /* Orbes animés derrière les cartes */
+        .services-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .services-orb-1 {
+            width: 500px; height: 500px;
+            background: #6F839E;
+            top: 10%; left: -10%;
+            animation: orbFloat1 10s ease-in-out infinite;
+        }
+        .services-orb-2 {
+            width: 400px; height: 400px;
+            background: #D46A6A;
+            top: 40%; right: -8%;
+            animation: orbFloat2 13s ease-in-out infinite;
+        }
+        .services-orb-3 {
+            width: 350px; height: 350px;
+            background: #9FB6A3;
+            bottom: 5%; left: 30%;
+            animation: orbFloat3 11s ease-in-out infinite;
+        }
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(60px, 40px); }
+        }
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 60px); }
+        }
+        @keyframes orbFloat3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(40px, -50px); }
         }
 
         .services-header {
             margin-bottom: 60px;
+            text-align: center;
         }
 
         .services-header h2 {
@@ -507,6 +569,7 @@
             color: var(--text-gray);
             font-size: 16px;
             max-width: 400px;
+            margin: 0 auto;
             line-height: 1.6;
         }
 
@@ -514,6 +577,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            margin-top: 24px;
             color: var(--text-white);
             font-size: 16px;
             font-weight: 500;
@@ -536,19 +600,36 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            position: relative;
+            z-index: 1;
         }
 
         .service-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 32px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.045);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 36px 40px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Reflet lumineux sur le haut de la carte */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
         }
 
         .service-card:hover {
-            border-color: #444;
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
         }
 
         .service-number {
@@ -572,9 +653,10 @@
 
         /* BIG TEXT SECTION */
         .big-text-section {
-            padding: 120px 20px;
+            padding: 60px 20px 30px;
             max-width: 1200px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .big-text {
@@ -587,16 +669,16 @@
         /* STATS */
         .stats-section {
             padding: 80px 20px;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .stats-image {
             width: 100%;
-            height: 350px;
+            height: 520px;
             border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .stats-image img {
@@ -605,27 +687,81 @@
             object-fit: cover;
         }
 
-        .stats-grid {
+        .stats-body {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .stats-text {}
+
+        .stats-text-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            margin-bottom: 24px;
+        }
+
+        .stats-text-title {
+            font-family: var(--font-title);
+            font-size: clamp(32px, 4.5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 28px;
+        }
+
+        .stats-text-desc {
+            font-size: clamp(15px, 1.4vw, 18px);
+            color: var(--text-gray);
+            line-height: 1.7;
+            max-width: 520px;
+        }
+
+        .stats-card {
+            background: #111113;
+            border: 1px solid #1e1e22;
+            border-radius: 24px;
+            padding: 40px 36px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px 24px;
         }
 
         .stat-item .stat-number {
-            font-size: clamp(36px, 6vw, 56px);
+            font-size: clamp(32px, 4vw, 46px);
             font-weight: 800;
             letter-spacing: -2px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .stat-item .stat-label {
             color: var(--text-gray);
-            font-size: 15px;
+            font-size: 13px;
             line-height: 1.5;
         }
 
         /* SNAP SCROLL SECTION */
         /* SNAP PANELS — normal sections with scroll snap */
+        .snap-panel-character {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 90%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .snap-panel-character img {
+            height: 100%;
+            width: auto;
+            display: block;
+            object-fit: contain;
+            object-position: bottom;
+        }
+
         .snap-panel {
             height: 100vh;
             display: flex;
@@ -636,16 +772,21 @@
         }
 
         .snap-panel-content {
-            max-width: 900px;
-            padding: 40px;
+            max-width: 700px;
+            padding: 36px 44px;
             text-align: center;
             z-index: 2;
+            position: relative;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .snap-panel-label {
             font-family: var(--font-mono);
             font-size: 13px;
-            color: var(--text-gray);
+            color: rgba(255,255,255,0.95);
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 24px;
@@ -660,9 +801,9 @@
         }
 
         .snap-panel-desc {
-            font-size: clamp(16px, 2vw, 20px);
-            color: var(--text-gray);
-            line-height: 1.6;
+            font-size: clamp(15px, 1.6vw, 18px);
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.75;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -680,40 +821,42 @@
 /* TESTIMONIALS */
         .testimonials-section {
             padding: 120px 20px;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             overflow: visible;
+            text-align: center;
         }
 
         .testimonials-label {
             font-family: var(--font-mono);
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-gray);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
         }
 
         .testimonials-title {
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 600;
-            margin-bottom: 60px;
-            max-width: 600px;
-            letter-spacing: -1px;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            margin: 0 auto 24px;
+            max-width: 700px;
+            letter-spacing: -2px;
+            line-height: 1.1;
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
             overflow: visible;
         }
 
         .testimonial-card {
-            background: var(--bg-card);
+            background: none;
             border-radius: 20px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
+            border: none;
             will-change: transform, opacity;
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -729,7 +872,7 @@
 
         .testimonial-img {
             width: 100%;
-            height: 280px;
+            height: 600px;
             overflow: hidden;
         }
 
@@ -829,19 +972,12 @@
 
         /* PORTFOLIO CAROUSEL */
         .portfolio-scroll-wrapper {
-            height: 250vh; /* scroll space for 3 steps */
             position: relative;
         }
 
         .portfolio-section {
-            padding: 80px 0;
-            overflow: hidden;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 60px 0 40px;
+            overflow: visible;
         }
 
         .portfolio-header {
@@ -868,8 +1004,9 @@
         .portfolio-carousel {
             position: relative;
             width: 100%;
-            overflow: hidden;
-            padding: 40px 0;
+            overflow-x: hidden;
+            overflow-y: visible;
+            padding: 20px 0 40px;
         }
 
         .portfolio-track {
@@ -882,7 +1019,7 @@
         }
 
         .portfolio-item {
-            flex: 0 0 280px;
+            flex: 0 0 360px;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
@@ -910,28 +1047,7 @@
             display: block;
         }
 
-        .portfolio-item-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px 20px 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-        }
-
-        .portfolio-item-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .portfolio-item-type {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .portfolio-item-overlay { display: none; }
 
         /* Carousel indicators */
         .portfolio-indicators {
@@ -1140,6 +1256,15 @@
                 padding: 24px;
             }
 
+            .stats-body {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stats-card {
+                width: 100%;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 30px;
@@ -1237,6 +1362,14 @@
         <a href="#about" onclick="toggleMenu()">À propos</a>
         <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
         <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:8px;padding-top:24px;border-top:1px solid #252729;width:100%;max-width:300px;">
+            <span style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;color:#6e7178;text-transform:uppercase;margin-bottom:4px;">Nos services</span>
+            <a href="site-web.html" onclick="toggleMenu()" style="font-size:22px;">Site Web</a>
+            <a href="branding.html" onclick="toggleMenu()" style="font-size:22px;">Branding</a>
+            <a href="referencement.html" onclick="toggleMenu()" style="font-size:22px;">Référencement</a>
+            <a href="reseaux.html" onclick="toggleMenu()" style="font-size:22px;">Réseaux Sociaux</a>
+            <a href="recrutement.html" onclick="toggleMenu()" style="font-size:22px;">On recrute</a>
+        </div>
         <a href="mailto:contact@acco.fr" style="font-size:18px;color:var(--text-gray)">contact@acco.fr</a>
         <div style="display:flex;gap:16px;color:var(--text-gray);font-size:14px;">
             <a href="#">BE</a><span>/</span><a href="#">DR</a><span>/</span><a href="#">X</a>
@@ -1361,7 +1494,7 @@
 
     <!-- ABOUT TEXT -->
     <section class="section" id="about">
-        <p class="about-text reveal">Acco &mdash; une agence web qui crée des sites vitrines percutants, des campagnes ads performantes et améliore votre visibilité sur Google.</p>
+        <p class="about-text reveal">Acco, bien plus qu'une agence : votre partenaire pour devenir une entreprise incontournable.<span class="about-sub">Nous construisons votre visibilité, affirmons votre crédibilité et façonnons une image de marque qui inspire confiance et attire les bonnes opportunités.</span></p>
     </section>
 
     <!-- CLIENTS BAR -->
@@ -1387,69 +1520,72 @@
     <section class="section" id="projects" style="overflow-x: clip;">
         <div class="section-header reveal">
             <div>
-                <h2 class="section-title">Projets.</h2>
+                <h2 class="section-title">Nos Services.</h2>
                 <p class="section-desc">Chaque pixel naît d'une stratégie claire pensée pour vous faire grandir.</p>
             </div>
             <a href="#" class="see-all">Tout voir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
 
         <div class="projects-grid">
-            <div class="project-card">
-                <img src="image/1.png" alt="Lunar+ Project">
+            <a href="site-web.html" class="project-card">
+                <img src="image/sit.png" alt="Site web">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Site web
                     </div>
                 </div>
                 <div class="project-card-tag">Site web</div>
-            </div>
+            </a>
 
-            <div class="project-card">
-                <img src="image/2.png" alt="Clonify Project">
+            <a href="branding.html" class="project-card">
+                <img src="image/bra.png" alt="Branding">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Branding
                     </div>
                 </div>
                 <div class="project-card-tag">Branding</div>
-            </div>
+            </a>
 
-            <div class="project-card">
-                <img src="image/3.png" alt="Grotesks Project">
+            <a href="mailto:contact@acco360.fr" class="project-card">
+                <img src="image/ia.png" alt="Automatisation & agents IA">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Automatisation &amp; agents IA
                     </div>
                 </div>
                 <div class="project-card-tag">Automatisation &amp; agents IA</div>
-            </div>
+            </a>
 
-            <div class="project-card">
-                <img src="image/4.png" alt="Zypher Project">
+            <a href="referencement.html" class="project-card">
+                <img src="image/ref.png" alt="Référencement">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Référencement
                     </div>
                 </div>
                 <div class="project-card-tag">Référencement</div>
-            </div>
+            </a>
 
-            <div class="project-card large">
-                <img src="image/5.png" alt="Blob Project" style="filter:brightness(0.6)">
+            <a href="reseaux.html" class="project-card large">
+                <img src="image/res.png" alt="Réseaux sociaux">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Réseaux sociaux
                     </div>
                 </div>
                 <div class="project-card-tag">Réseaux sociaux</div>
-            </div>
+            </a>
         </div>
     </section>
 
     <!-- SERVICES -->
     <section class="services-section" id="services">
+        <div class="services-orb services-orb-1"></div>
+        <div class="services-orb services-orb-2"></div>
+        <div class="services-orb services-orb-3"></div>
         <div class="services-header reveal">
-            <h2>Services.</h2>
+            <h2>Nos Expertises.</h2>
             <p>Nous aidons les entreprises de tous secteurs à atteindre leurs objectifs.</p>
             <a href="#contact" class="get-in-touch">
                 Nous contacter
@@ -1497,53 +1633,28 @@
         <div class="portfolio-carousel">
             <div class="portfolio-track" id="portfolioTrack">
                 <div class="portfolio-item" data-index="0">
-                    <img src="image/60c43a8f-7f19-4040-87df-0945698145a3.png" alt="Projet 1">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Novara Studio</div>
-                        <div class="portfolio-item-type">Site d'agence</div>
-                    </div>
+                    <img src="image/26.png" alt="Projet 1">
                 </div>
                 <div class="portfolio-item" data-index="1">
-                    <img src="image/286fd68d-9c96-4b35-ade5-0679d2c62f5b.png" alt="Projet 2">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Zenith App</div>
-                        <div class="portfolio-item-type">Plateforme SaaS</div>
-                    </div>
+                    <img src="image/27.png" alt="Projet 2">
                 </div>
                 <div class="portfolio-item active" data-index="2">
-                    <img src="image/4444d754-8372-4251-9fd8-16e036a13d5f.png" alt="Projet 3">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Ember &amp; Co</div>
-                        <div class="portfolio-item-type">E-commerce</div>
-                    </div>
+                    <img src="image/28.png" alt="Projet 3">
                 </div>
                 <div class="portfolio-item" data-index="3">
-                    <img src="image/07980af1-1c1a-4d81-83ca-dea20b4de295.png" alt="Projet 4">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Pulse Health</div>
-                        <div class="portfolio-item-type">App Santé</div>
-                    </div>
+                    <img src="image/29.png" alt="Projet 4">
                 </div>
                 <div class="portfolio-item" data-index="4">
-                    <img src="image/Capture d'écran 2026-03-22 033130.png" alt="Projet 5">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Atlas Finance</div>
-                        <div class="portfolio-item-type">Dashboard Fintech</div>
-                    </div>
+                    <img src="image/30.png" alt="Projet 5">
                 </div>
                 <div class="portfolio-item" data-index="5">
-                    <img src="image/Capture d'écran 2026-03-22 171515.png" alt="Projet 6">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Drift Studio</div>
-                        <div class="portfolio-item-type">Portfolio</div>
-                    </div>
+                    <img src="image/31.png" alt="Projet 6">
                 </div>
                 <div class="portfolio-item" data-index="6">
-                    <img src="image/Capture d'écran 2026-03-23 093356.png" alt="Projet 7">
-                    <div class="portfolio-item-overlay">
-                        <div class="portfolio-item-name">Neon Collective</div>
-                        <div class="portfolio-item-type">Agence Créative</div>
-                    </div>
+                    <img src="image/32.png" alt="Projet 7">
+                </div>
+                <div class="portfolio-item" data-index="7">
+                    <img src="image/33.png" alt="Projet 8">
                 </div>
             </div>
         </div>
@@ -1553,93 +1664,98 @@
 
     <!-- BIG TEXT + STATS -->
     <section class="big-text-section">
-        <p class="big-text reveal">Acco est une agence web qui façonne des marques fortes et des idées audacieuses.</p>
+        <p class="big-text reveal">Ceux qui font confiance à Acco regrettent de ne pas l'avoir fait plus tôt.</p>
     </section>
 
     <section class="stats-section">
         <div class="stats-image reveal">
-            <img src="https://picsum.photos/seed/holo/1200/500" alt="Abstract holographic">
+            <img src="image/stats-bg.png" alt="Acco réalisations">
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-item reveal reveal-delay-1">
-                <div class="stat-number" data-target="3000000" data-suffix="m+" data-prefix="">3m+</div>
-                <div class="stat-label">De chiffre d'affaires généré pour nos clients.</div>
+        <div class="stats-body">
+            <div class="stats-text reveal">
+                <div class="stats-text-label">Notre mission</div>
+                <h2 class="stats-text-title">Nous vous accompagnons à devenir une grande boîte.</h2>
+                <p class="stats-text-desc">Un bon produit ne suffit pas. Les marques qui dominent leur marché sont celles qui savent occuper l'espace, marquer les esprits et rester présentes là où ça compte. Chez Acco, on bâtit votre visibilité autant que votre crédibilité.</p>
             </div>
-            <div class="stat-item reveal reveal-delay-2">
-                <div class="stat-number" data-target="281">281</div>
-                <div class="stat-label">Sites web lancés grâce à notre processus créatif.</div>
-            </div>
-            <div class="stat-item reveal reveal-delay-3">
-                <div class="stat-number" data-target="56">56</div>
-                <div class="stat-label">Campagnes ads lancées avec succès.</div>
-            </div>
-            <div class="stat-item reveal reveal-delay-4">
-                <div class="stat-number" data-target="97" data-suffix="%">97%</div>
-                <div class="stat-label">De satisfaction client sur l'ensemble de nos projets.</div>
+
+            <div class="stats-card reveal">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="700" data-suffix="k+">700k+</div>
+                    <div class="stat-label">De chiffre d'affaires généré pour nos clients.</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="46">46</div>
+                    <div class="stat-label">Sites web lancés grâce à notre processus créatif.</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="32">32</div>
+                    <div class="stat-label">Campagnes ads lancées avec succès.</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="97" data-suffix="%">97%</div>
+                    <div class="stat-label">De satisfaction client sur nos projets.</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- SNAP SCROLL PANELS — 3 full-screen sections -->
-    <section class="snap-panel" data-snap="0" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a1028 50%, #0e0e0f 100%);">
+    <section class="snap-panel" data-snap="0" style="background: linear-gradient(135deg, #0e0e0f 0%, #6F839E 50%, #0e0e0f 100%);">
         <div class="snap-panel-number">01</div>
         <div class="snap-panel-content">
-            <div class="snap-panel-label">_001 / Approche</div>
-            <h2 class="snap-panel-title">La stratégie d'abord,<br>les pixels ensuite.</h2>
-            <p class="snap-panel-desc">Chaque projet commence par une recherche approfondie et une stratégie claire. On s'aligne sur les objectifs avant de poser le moindre pixel.</p>
+            <div class="snap-panel-label">_001 / Site web</div>
+            <h2 class="snap-panel-title">Votre image,<br>votre crédibilité.</h2>
+            <p class="snap-panel-desc">Un site internet n'est pas juste une vitrine. C'est souvent la première impression que vous laissez — et elle doit inspirer confiance instantanément.<br><br>Chez Acco, nous concevons des sites clairs, modernes et stratégiques pour rassurer, convaincre et transformer vos visiteurs en clients.</p>
+        </div>
+        <div class="snap-panel-character">
+            <img src="image/19.png" alt="">
         </div>
     </section>
 
-    <section class="snap-panel" data-snap="1" style="background: linear-gradient(135deg, #0e0e0f 0%, #0f1a1a 50%, #0e0e0f 100%);">
+    <section class="snap-panel" data-snap="1" style="background: linear-gradient(135deg, #0e0e0f 0%, #D46A6A 50%, #0e0e0f 100%);">
         <div class="snap-panel-number">02</div>
         <div class="snap-panel-content">
-            <div class="snap-panel-label">_002 / Processus</div>
-            <h2 class="snap-panel-title">Concevoir avec<br>intention.</h2>
-            <p class="snap-panel-desc">On itère vite et on construit avec un but. Chaque élément a une fonction, chaque interaction raconte une histoire.</p>
+            <div class="snap-panel-label">_002 / Acquisition</div>
+            <h2 class="snap-panel-title">Devenez la référence<br>de votre marché.</h2>
+            <p class="snap-panel-desc">Être bon ne suffit pas. Il faut être visible, présent, et impossible à ignorer là où vos clients vous cherchent.<br><br>Chez Acco, nous attirons les bonnes personnes, au bon moment, grâce à des stratégies d'acquisition performantes (Ads & réseaux sociaux).</p>
+        </div>
+        <div class="snap-panel-character">
+            <img src="image/18.png" alt="">
         </div>
     </section>
 
-    <section class="snap-panel" data-snap="2" style="background: linear-gradient(135deg, #0e0e0f 0%, #1a160f 50%, #0e0e0f 100%);">
+    <section class="snap-panel" data-snap="2" style="background: linear-gradient(135deg, #0e0e0f 0%, #9FB6A3 50%, #0e0e0f 100%);">
         <div class="snap-panel-number">03</div>
         <div class="snap-panel-content">
-            <div class="snap-panel-label">_003 / Livraison</div>
-            <h2 class="snap-panel-title">Lancer, mesurer,<br>évoluer.</h2>
-            <p class="snap-panel-desc">On ne livre pas pour disparaître. On suit les résultats, on optimise et on grandit aux côtés de votre marque.</p>
+            <div class="snap-panel-label">_003 / Branding</div>
+            <h2 class="snap-panel-title">Soyez différent.<br>Soyez reconnaissable.</h2>
+            <p class="snap-panel-desc">Les marques qui marquent sont celles qu'on reconnaît en un instant. Votre différence n'est pas un détail — c'est votre force.<br><br>Chez Acco, nous construisons une identité forte et cohérente pour que votre marque reste en tête et se démarque durablement.</p>
+        </div>
+        <div class="snap-panel-character">
+            <img src="image/11.png" alt="">
         </div>
     </section>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials-section" id="testimonials">
-        <div class="testimonials-label reveal">TÉMOIGNAGES</div>
-        <h2 class="testimonials-title reveal">Des marques qui n'ont pas peur de se démarquer nous font confiance.</h2>
+        <div class="testimonials-label reveal">AVIS CLIENTS</div>
+        <h2 class="testimonials-title reveal">Ils ont osé.<br>Ils ne regrettent pas.</h2>
 
         <div class="testimonials-grid">
             <div class="testimonial-card fly-card" data-fly="left">
                 <div class="testimonial-img">
-                    <img src="https://picsum.photos/seed/sarah/600/500" alt="Sarah Conor">
-                </div>
-                <div class="testimonial-content">
-                    <div class="testimonial-name">Sarah Conor</div>
-                    <div class="testimonial-role">Founder, Clonify</div>
+                    <img src="image/34.png" alt="Avis client 1">
                 </div>
             </div>
             <div class="testimonial-card fly-card" data-fly="right">
                 <div class="testimonial-img">
-                    <img src="https://picsum.photos/seed/bruce/600/500" alt="Bruce Lee">
-                </div>
-                <div class="testimonial-content">
-                    <div class="testimonial-name">Bruce Lee</div>
-                    <div class="testimonial-role">Design Director, Maiz</div>
+                    <img src="image/35.png" alt="Avis client 2">
                 </div>
             </div>
             <div class="testimonial-card fly-card" data-fly="left">
                 <div class="testimonial-img">
-                    <img src="https://picsum.photos/seed/john/600/500" alt="John Headphone">
-                </div>
-                <div class="testimonial-content">
-                    <div class="testimonial-name">John Headphone</div>
-                    <div class="testimonial-role">UFO, Marcom</div>
+                    <img src="image/36.png" alt="Avis client 3">
                 </div>
             </div>
         </div>
@@ -1827,7 +1943,9 @@
         function animateCounter(el) {
             const text = el.textContent;
             const hasM = text.includes('m');
+            const hasK = text.includes('k') || text.includes('K');
             const hasPercent = text.includes('%');
+            const hasPlus = text.includes('+');
             const numericVal = parseInt(text.replace(/[^0-9]/g, ''));
 
             let target;
@@ -1837,6 +1955,9 @@
             if (hasM) {
                 target = 3;
                 suffix = 'm+';
+            } else if (hasK) {
+                target = numericVal;
+                suffix = 'k+';
             } else if (hasPercent) {
                 target = numericVal;
                 suffix = '%';
@@ -1996,42 +2117,6 @@
             });
 
             window.addEventListener('resize', () => slide(false));
-
-            // Scroll-linked carousel: scroll position in wrapper controls which item is active
-            const wrapper = document.getElementById('portfolioWrapper');
-            const scrollSteps = 3;
-            let lastScrollStep = -1;
-            let scrollQueued = false;
-
-            function onScrollUpdate() {
-                if (!wrapper || scrollQueued) return;
-                scrollQueued = true;
-                requestAnimationFrame(() => {
-                    scrollQueued = false;
-                    const wrapperRect = wrapper.getBoundingClientRect();
-                    const scrolled = -wrapperRect.top;
-                    const scrollRange = wrapper.offsetHeight - window.innerHeight;
-                    if (scrollRange <= 0) return;
-
-                    const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
-                    const step = Math.min(scrollSteps - 1, Math.floor(progress * scrollSteps));
-
-                    if (step !== lastScrollStep && step >= 0 && step < scrollSteps) {
-                        const diff = step - lastScrollStep;
-                        if (lastScrollStep === -1) {
-                            // Initial position
-                        } else if (diff > 0) {
-                            for (let i = 0; i < diff; i++) goNext();
-                        } else {
-                            for (let i = 0; i < -diff; i++) goPrev();
-                        }
-                        lastScrollStep = step;
-                        resetAutoplay();
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', onScrollUpdate, { passive: true });
 
             slide(false);
             resetAutoplay();

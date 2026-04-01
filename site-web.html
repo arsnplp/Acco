@@ -291,18 +291,19 @@
             background: var(--bg-card);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            padding: 120px 0;
-            display: flex; flex-direction: column; gap: 120px;
+            padding: 140px 0;
+            display: flex; flex-direction: column; gap: 140px;
         }
+        .blocks .wrap { max-width: 1400px; padding: 0 80px; }
 
         .block-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 72px;
+            gap: 100px;
             align-items: center;
         }
         .block-row.reverse .block-img { order: -1; }
-        .block-row.reverse { gap: 72px; }
+        .block-row.reverse { gap: 100px; }
 
         /* image avec watermark acco */
         .block-img {
@@ -310,7 +311,7 @@
             border-radius: 20px;
             overflow: hidden;
             background: var(--bg-card2);
-            aspect-ratio: 4/3;
+            aspect-ratio: 3/2;
         }
         .block-img img {
             width: 100%; height: 100%;
@@ -737,6 +738,9 @@
 
             .block-row,
             .block-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+            .block-row.reverse .block-img { order: 1; }
+            .blocks { gap: 64px; padding: 80px 0; }
+            .blocks .wrap { padding: 0 20px; }
             .process-grid { grid-template-columns: repeat(2, 1fr); }
             .process-step::after { display: none; }
 
@@ -858,29 +862,25 @@
     <div class="services-strip">
         <a href="branding.html" class="strip-item">
             <div class="strip-thumb">
-                <!-- image icône branding -->
-                <img src="" alt="Branding">
+                <img src="image/petitlogo bra.png" alt="Branding">
             </div>
             <span class="strip-name">Branding</span>
         </a>
         <a href="site-web.html" class="strip-item">
             <div class="strip-thumb">
-                <!-- image icône site web -->
-                <img src="" alt="Site Web">
+                <img src="image/petitlogo sit.png" alt="Site Web">
             </div>
             <span class="strip-name active">Site Web</span>
         </a>
         <a href="referencement.html" class="strip-item">
             <div class="strip-thumb">
-                <!-- image icône référencement -->
-                <img src="" alt="Référencement">
+                <img src="image/petitlogo ref.png" alt="Référencement">
             </div>
             <span class="strip-name">Référencement</span>
         </a>
         <a href="reseaux.html" class="strip-item">
             <div class="strip-thumb">
-                <!-- image icône réseaux -->
-                <img src="" alt="Réseaux Sociaux">
+                <img src="image/petitlogo res.png" alt="Réseaux Sociaux">
             </div>
             <span class="strip-name">Réseaux Sociaux</span>
         </a>
@@ -909,16 +909,13 @@
             <!-- Grille d'images 2×2 -->
             <div class="img-grid">
                 <div class="img-cell">
-                    <!-- image 1 — grande, portrait (photo personne sur téléphone / travail) -->
-                    <img src="" alt="">
+                    <img src="image/ste11.png" alt="">
                 </div>
                 <div class="img-cell">
-                    <!-- image 2 — petite haute -->
-                    <img src="" alt="">
+                    <img src="image/ste12.png" alt="">
                 </div>
                 <div class="img-cell">
-                    <!-- image 3 — petite basse -->
-                    <img src="" alt="">
+                    <img src="image/ste13.png" alt="">
                 </div>
             </div>
 
@@ -965,8 +962,7 @@
                 </div>
             </div>
             <div class="block-img">
-                <!-- image mockup site / laptop / rendu design — remplace src -->
-                <img src="" alt="Design web">
+                <img src="image/ste2.png" alt="Design web">
                 <div class="block-img-logo">acco</div>
             </div>
         </div>
@@ -974,8 +970,7 @@
         <!-- Bloc 2 : image gauche / texte droite -->
         <div class="block-row reverse">
             <div class="block-img">
-                <!-- image personne sur mobile / bureau / chantier — remplace src -->
-                <img src="" alt="Performance & SEO">
+                <img src="image/ste3.png" alt="Performance & SEO">
                 <div class="block-img-logo">acco</div>
             </div>
             <div>
@@ -1005,8 +1000,7 @@
 
             <!-- Image (bâtiment Google ou bureau) -->
             <div class="img-square">
-                <!-- remplace src par ton image Google / référencement -->
-                <img src="" alt="Référencement Local">
+                <img src="image/ste4.png" alt="Référencement Local">
             </div>
 
             <!-- Texte + stat cards -->

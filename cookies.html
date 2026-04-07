@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de cookies — Acco Agence Web Paris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:       #0a0a0b;
+            --bg-card:  #111113;
+            --bg-card2: #161618;
+            --white:    #ffffff;
+            --gray:     #555860;
+            --gray-lt:  #888b94;
+            --accent:   #6b8cff;
+            --border:   #1e1e22;
+            --font:     'Inter', -apple-system, sans-serif;
+            --title:    'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; overflow-x: clip; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--white);
+            overflow-x: clip;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 { font-family: var(--title); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* ─── NAVBAR ─── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            background: rgba(10,10,11,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .logo img { height: 48px; }
+        .menu-btn { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+        .menu-btn div { width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+        .menu-btn div:last-child { width: 18px; margin-left: auto; }
+
+        /* MOBILE NAV */
+        .mobile-nav {
+            position: fixed; inset: 0; background: var(--bg); z-index: 99;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px;
+            opacity: 0; pointer-events: none; transition: opacity .4s;
+        }
+        .mobile-nav.active { opacity: 1; pointer-events: all; }
+        .mobile-nav a { font-family: var(--title); font-size: 30px; font-weight: 600; opacity: .6; transition: opacity .3s; }
+        .mobile-nav a:hover { opacity: 1; }
+
+        /* ─── HERO ─── */
+        .page-hero {
+            padding: 160px 40px 80px;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .overline {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+        .page-hero h1 {
+            font-family: var(--title);
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .page-hero .meta {
+            font-size: 14px;
+            color: var(--gray);
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        /* ─── CONTENT ─── */
+        .legal-content {
+            flex: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 40px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .legal-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 40px;
+            transition: border-color .3s;
+        }
+        .legal-block:hover {
+            border-color: rgba(107,140,255,.2);
+        }
+
+        .block-num {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .legal-block h2 {
+            font-family: var(--title);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .legal-block p,
+        .legal-block li {
+            font-size: 15px;
+            color: var(--gray-lt);
+            line-height: 1.75;
+        }
+
+        .legal-block p + p { margin-top: 12px; }
+
+        .accent-link {
+            color: var(--accent);
+            transition: opacity .2s;
+        }
+        .accent-link:hover { opacity: .7; }
+
+        /* ─── COOKIE TYPES GRID ─── */
+        .cookie-types {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .cookie-type {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .cookie-badge {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 6px;
+        }
+        .cookie-badge.essential  { background: #22c55e; }
+        .cookie-badge.analytics  { background: var(--accent); }
+        .cookie-badge.marketing  { background: #f59e0b; }
+
+        .cookie-type-info h3 {
+            font-family: var(--title);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cookie-tag {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: var(--font);
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .cookie-tag.required  { background: rgba(34,197,94,.12);  color: #4ade80; }
+        .cookie-tag.optional  { background: rgba(107,140,255,.12); color: #93a8ff; }
+
+        .cookie-type-info p {
+            font-size: 14px;
+            color: var(--gray-lt);
+            line-height: 1.6;
+        }
+
+        /* ─── TOGGLE SECTION ─── */
+        .pref-section {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 0;
+        }
+
+        .pref-label h3 {
+            font-family: var(--title);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .pref-label p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .toggle {
+            flex-shrink: 0;
+            width: 48px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background .3s;
+        }
+        .toggle.on {
+            background: var(--accent);
+        }
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: left .3s;
+        }
+        .toggle.on::after {
+            left: 25px;
+        }
+        .toggle.locked {
+            cursor: not-allowed;
+            opacity: .6;
+        }
+
+        .pref-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .save-pref-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--white);
+            color: var(--bg);
+            border: none;
+            border-radius: 10px;
+            font-family: var(--title);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .2s, transform .15s;
+            margin-top: 8px;
+        }
+        .save-pref-btn:hover { opacity: .88; }
+        .save-pref-btn:active { transform: scale(.98); }
+
+        .save-msg {
+            display: none;
+            text-align: center;
+            font-size: 13px;
+            color: #93a8ff;
+            padding: 10px;
+        }
+
+        /* ─── BROWSER TABLE ─── */
+        .browser-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .browser-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        .browser-item span:first-child {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--white);
+        }
+        .browser-item a {
+            font-size: 13px;
+            color: var(--accent);
+            transition: opacity .2s;
+        }
+        .browser-item a:hover { opacity: .7; }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            position: relative;
+            overflow: hidden;
+            padding: 80px 40px 32px;
+            border-top: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+        }
+        .footer-glow {
+            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+            width: 500px; height: 250px;
+            background: radial-gradient(ellipse, rgba(107,140,255,.10), transparent 70%);
+            filter: blur(60px); pointer-events: none;
+        }
+        .footer-logo { margin-bottom: 40px; }
+        .footer-logo img { height: 64px; filter: brightness(0) invert(1); }
+        .footer-nav { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+        .footer-nav a { color: var(--gray); font-size: 15px; transition: color .3s; }
+        .footer-nav a:hover { color: var(--white); }
+        .footer-legal { display: flex; gap: 24px; margin-bottom: 40px; }
+        .footer-legal a { font-size: 12px; color: var(--gray); letter-spacing: .5px; transition: color .3s; }
+        .footer-legal a:hover { color: var(--white); }
+        .footer-bot {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 20px; border-top: 1px solid var(--border);
+            width: 100%;
+        }
+        .footer-soc { font-size: 13px; color: var(--gray); display: flex; gap: 6px; }
+        .footer-cr  { font-size: 13px; color: var(--gray); }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 3px; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 700px) {
+            .navbar { padding: 16px 20px; }
+            .page-hero { padding: 140px 20px 60px; }
+            .legal-content { padding: 0 20px 80px; }
+            .legal-block { padding: 28px 24px; }
+            .pref-section { flex-direction: column; align-items: flex-start; }
+            .footer { padding: 60px 20px 28px; }
+            .footer-legal { flex-direction: column; gap: 12px; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <img src="image/En-tête (11).webp" alt="Acco">
+    </a>
+    <div class="menu-btn" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="index.html"         onclick="toggleMenu()">Accueil</a>
+    <a href="site-web.html"      onclick="toggleMenu()">Site Web</a>
+    <a href="branding.html"      onclick="toggleMenu()">Branding</a>
+    <a href="referencement.html" onclick="toggleMenu()">Référencement</a>
+    <a href="reseaux.html"       onclick="toggleMenu()">Réseaux Sociaux</a>
+    <a href="recrutement.html"   onclick="toggleMenu()">On recrute</a>
+    <a href="contact.html"       onclick="toggleMenu()" style="font-size:22px;">Contact</a>
+</div>
+
+
+<!-- ─── HERO ─── -->
+<header class="page-hero">
+    <span class="overline">Acco — Agence Web Paris</span>
+    <h1>Politique<br>de cookies.</h1>
+    <p class="meta">Dernière mise à jour&nbsp;: Avril 2026</p>
+</header>
+
+
+<!-- ─── CONTENT ─── -->
+<main class="legal-content">
+
+    <!-- 01 — C'est quoi -->
+    <div class="legal-block">
+        <span class="block-num">01</span>
+        <h2>Qu'est-ce qu'un cookie&nbsp;?</h2>
+        <p>Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, smartphone, tablette) lors de votre visite sur un site web. Il permet au site de mémoriser des informations sur votre navigation pour vous offrir une expérience adaptée et améliorer ses performances.</p>
+        <p>Les cookies ne contiennent pas de virus et ne peuvent pas endommager votre appareil. Leur durée de vie est limitée et ils peuvent être supprimés à tout moment depuis les paramètres de votre navigateur.</p>
+    </div>
+
+    <!-- 02 — Cookies utilisés -->
+    <div class="legal-block">
+        <span class="block-num">02</span>
+        <h2>Cookies que nous utilisons</h2>
+        <div class="cookie-types">
+
+            <div class="cookie-type">
+                <div class="cookie-badge essential"></div>
+                <div class="cookie-type-info">
+                    <h3>
+                        Cookies essentiels
+                        <span class="cookie-tag required">Obligatoires</span>
+                    </h3>
+                    <p>Indispensables au bon fonctionnement du site. Ils permettent d'assurer la navigation et l'utilisation des fonctionnalités de base (mémorisation de vos préférences, sécurité). Ces cookies ne peuvent pas être désactivés.</p>
+                </div>
+            </div>
+
+            <div class="cookie-type">
+                <div class="cookie-badge analytics"></div>
+                <div class="cookie-type-info">
+                    <h3>
+                        Cookies analytiques
+                        <span class="cookie-tag optional">Optionnels</span>
+                    </h3>
+                    <p>Nous permettent de mesurer l'audience du site et de comprendre comment les visiteurs interagissent avec nos pages (pages visitées, durée de session, provenance du trafic). Ces données sont anonymisées et agrégées.</p>
+                </div>
+            </div>
+
+            <div class="cookie-type">
+                <div class="cookie-badge marketing"></div>
+                <div class="cookie-type-info">
+                    <h3>
+                        Cookies marketing
+                        <span class="cookie-tag optional">Optionnels</span>
+                    </h3>
+                    <p>Utilisés pour vous proposer des contenus et publicités personnalisés en fonction de votre navigation. Ils peuvent être déposés par nos partenaires publicitaires. Vous pouvez les refuser sans impact sur votre navigation.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 03 — Mes préférences -->
+    <div class="legal-block">
+        <span class="block-num">03</span>
+        <h2>Gérer mes préférences</h2>
+        <p>Vous pouvez à tout moment choisir d'activer ou de désactiver les cookies optionnels. Vos préférences sont enregistrées localement sur votre appareil.</p>
+
+        <div class="pref-container" style="margin-top: 24px;">
+
+            <div class="pref-section">
+                <div class="pref-label">
+                    <h3>Cookies essentiels</h3>
+                    <p>Toujours actifs — nécessaires au fonctionnement du site</p>
+                </div>
+                <div class="toggle on locked" id="toggleEssential"></div>
+            </div>
+
+            <div class="pref-section">
+                <div class="pref-label">
+                    <h3>Cookies analytiques</h3>
+                    <p>Mesure d'audience anonymisée</p>
+                </div>
+                <div class="toggle" id="toggleAnalytics" onclick="togglePref(this)"></div>
+            </div>
+
+            <div class="pref-section">
+                <div class="pref-label">
+                    <h3>Cookies marketing</h3>
+                    <p>Contenu personnalisé et publicité ciblée</p>
+                </div>
+                <div class="toggle" id="toggleMarketing" onclick="togglePref(this)"></div>
+            </div>
+
+            <button class="save-pref-btn" onclick="savePrefs()">Enregistrer mes préférences</button>
+            <div class="save-msg" id="saveMsg">Préférences enregistrées ✓</div>
+        </div>
+    </div>
+
+    <!-- 04 — Navigateurs -->
+    <div class="legal-block">
+        <span class="block-num">04</span>
+        <h2>Supprimer les cookies via votre navigateur</h2>
+        <p>Vous pouvez également gérer et supprimer les cookies directement depuis les paramètres de votre navigateur.</p>
+
+        <div class="browser-list" style="margin-top: 20px;">
+            <div class="browser-item">
+                <span>Google Chrome</span>
+                <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Voir le guide →</a>
+            </div>
+            <div class="browser-item">
+                <span>Mozilla Firefox</span>
+                <a href="https://support.mozilla.org/fr/kb/supprimer-cookies-donnees-site-firefox" target="_blank" rel="noopener">Voir le guide →</a>
+            </div>
+            <div class="browser-item">
+                <span>Safari</span>
+                <a href="https://support.apple.com/fr-fr/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Voir le guide →</a>
+            </div>
+            <div class="browser-item">
+                <span>Microsoft Edge</span>
+                <a href="https://support.microsoft.com/fr-fr/microsoft-edge/supprimer-les-cookies-dans-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Voir le guide →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 05 — Contact -->
+    <div class="legal-block">
+        <span class="block-num">05</span>
+        <h2>Une question&nbsp;?</h2>
+        <p>Pour toute question relative à notre politique de cookies ou à l'utilisation de vos données personnelles, vous pouvez nous contacter à l'adresse <a href="mailto:contact@acco.fr" class="accent-link">contact@acco.fr</a> ou consulter nos <a href="mentions-legales.html" class="accent-link">Mentions légales</a>.</p>
+    </div>
+
+</main>
+
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+    <div class="footer-glow"></div>
+
+    <div class="footer-logo">
+        <img src="image/En-tête (4).webp" alt="Acco">
+    </div>
+
+    <nav class="footer-nav">
+        <a href="index.html">Accueil</a>
+        <a href="site-web.html">Site Web</a>
+        <a href="branding.html">Branding</a>
+        <a href="referencement.html">Référencement</a>
+        <a href="reseaux.html">Réseaux Sociaux</a>
+    </nav>
+
+    <div class="footer-legal">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cookies.html">Politique de cookies</a>
+    </div>
+
+    <div class="footer-bot">
+        <div class="footer-soc">IG <span>/</span> LI <span>/</span> X</div>
+        <div class="footer-cr">&copy;2026 Acco 360</div>
+    </div>
+</footer>
+
+
+<script>
+    function toggleMenu() {
+        document.getElementById('mobileNav').classList.toggle('active');
+    }
+
+    // Load saved prefs
+    const prefs = JSON.parse(localStorage.getItem('accoCookiePrefs') || '{}');
+    if (prefs.analytics) document.getElementById('toggleAnalytics').classList.add('on');
+    if (prefs.marketing)  document.getElementById('toggleMarketing').classList.add('on');
+
+    function togglePref(el) {
+        el.classList.toggle('on');
+    }
+
+    function savePrefs() {
+        const saved = {
+            analytics: document.getElementById('toggleAnalytics').classList.contains('on'),
+            marketing:  document.getElementById('toggleMarketing').classList.contains('on'),
+        };
+        localStorage.setItem('accoCookiePrefs', JSON.stringify(saved));
+        const msg = document.getElementById('saveMsg');
+        msg.style.display = 'block';
+        setTimeout(() => { msg.style.display = 'none'; }, 3000);
+    }
+</script>
+</body>
+</html>

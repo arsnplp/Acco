@@ -232,7 +232,7 @@
             font-weight: 900;
             letter-spacing: -5px;
             line-height: 0.9;
-            margin-bottom: -80px;
+            margin-bottom: -100px;
             opacity: 0;
             transform: translateY(70px) scale(0.5);
             animation: heroTitleIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
@@ -266,6 +266,30 @@
             opacity: 0;
             transform: translateY(40px);
             animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            margin-top: 0;
+            margin-bottom: 12px;
+            padding: 16px 40px;
+            background: var(--text-white);
+            color: var(--bg-dark);
+            font-size: clamp(15px, 1.5vw, 18px);
+            font-weight: 600;
+            border-radius: 100px;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease 1.5s forwards;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .hero-cta:hover {
+            background: #000000;
+            color: var(--text-white);
+            transform: translateY(-2px);
         }
 
         @keyframes fadeInUp {
@@ -1488,7 +1512,8 @@
         <!-- Hero content on top -->
         <div class="hero-content">
             <h1 class="hero-title"><img src="image/En-tête (4).webp" alt="Acco" class="hero-logo-img"></h1>
-            <p class="hero-subtitle">Nous sommes Acco — une agence web basée à Paris.</p>
+            <a href="contact.html" class="hero-cta">Contactez-nous</a>
+            <p class="hero-subtitle">Nous sommes Acco, une agence web proche de vous.</p>
         </div>
     </section>
 

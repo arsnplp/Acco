@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acco - Agence Web Paris</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -1044,6 +1048,7 @@
 
         .portfolio-item {
             flex: 0 0 360px;
+            height: 480px;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
@@ -1066,8 +1071,9 @@
 
         .portfolio-item img {
             width: 100%;
-            aspect-ratio: 3/4;
+            height: 100%;
             object-fit: cover;
+            object-position: center top;
             display: block;
         }
 
@@ -1099,6 +1105,7 @@
         @media (max-width: 768px) {
             .portfolio-item {
                 flex: 0 0 200px;
+                height: 267px;
                 transform: scale(0.8);
             }
             .portfolio-item.active {
@@ -1381,18 +1388,17 @@
 
     <!-- MOBILE NAV -->
     <div class="mobile-nav" id="mobileNav">
-        <a href="#" onclick="toggleMenu()">Accueil</a>
-        <a href="#projects" onclick="toggleMenu()">Projets</a>
-        <a href="#about" onclick="toggleMenu()">À propos</a>
-        <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
-        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="site-web.html" onclick="toggleMenu()">Site Web</a>
+        <a href="branding.html" onclick="toggleMenu()">Branding</a>
+        <a href="referencement.html" onclick="toggleMenu()">Référencement</a>
+        <a href="reseaux.html" onclick="toggleMenu()">Réseaux Sociaux</a>
+        <a href="recrutement.html" onclick="toggleMenu()">On recrute</a>
         <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:8px;padding-top:24px;border-top:1px solid #252729;width:100%;max-width:300px;">
-            <span style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;color:#6e7178;text-transform:uppercase;margin-bottom:4px;">Nos services</span>
-            <a href="site-web.html" onclick="toggleMenu()" style="font-size:22px;">Site Web</a>
-            <a href="branding.html" onclick="toggleMenu()" style="font-size:22px;">Branding</a>
-            <a href="referencement.html" onclick="toggleMenu()" style="font-size:22px;">Référencement</a>
-            <a href="reseaux.html" onclick="toggleMenu()" style="font-size:22px;">Réseaux Sociaux</a>
-            <a href="recrutement.html" onclick="toggleMenu()" style="font-size:22px;">On recrute</a>
+            <a href="#" onclick="toggleMenu()" style="font-size:22px;">Accueil</a>
+            <a href="#projects" onclick="toggleMenu()" style="font-size:22px;">Projets</a>
+            <a href="#about" onclick="toggleMenu()" style="font-size:22px;">À propos</a>
+            <a href="portfolio.html" onclick="toggleMenu()" style="font-size:22px;">Portfolio</a>
+            <a href="#contact" onclick="toggleMenu()" style="font-size:22px;">Contact</a>
         </div>
         <a href="contact.html" style="font-size:18px;color:var(--text-gray)">Contact</a>
         <div style="display:flex;gap:16px;color:var(--text-gray);font-size:14px;">
@@ -1658,7 +1664,7 @@
         <div class="portfolio-carousel">
             <div class="portfolio-track" id="portfolioTrack">
                 <div class="portfolio-item" data-index="0">
-                    <img src="image/26.webp" alt="Projet 1">
+                    <img src="image/26bis.webp" alt="Projet 1">
                 </div>
                 <div class="portfolio-item" data-index="1">
                     <img src="image/27.webp" alt="Projet 2">
@@ -1667,7 +1673,7 @@
                     <img src="image/28.webp" alt="Projet 3">
                 </div>
                 <div class="portfolio-item" data-index="3">
-                    <img src="image/29.webp" alt="Projet 4">
+                    <img src="image/29bis.webp" alt="Projet 4">
                 </div>
                 <div class="portfolio-item" data-index="4">
                     <img src="image/30.webp" alt="Projet 5">
@@ -1676,7 +1682,7 @@
                     <img src="image/31.webp" alt="Projet 6">
                 </div>
                 <div class="portfolio-item" data-index="6">
-                    <img src="image/32.webp" alt="Projet 7">
+                    <img src="image/32bis.webp" alt="Projet 7">
                 </div>
                 <div class="portfolio-item" data-index="7">
                     <img src="image/33.webp" alt="Projet 8">

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de confidentialité — ACCO LAB Agence Web Paris</title>
+    <meta name="robots" content="noindex, follow">
+    <link rel="stylesheet" href="fonts.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:       #0a0a0b;
+            --bg-card:  #111113;
+            --bg-card2: #161618;
+            --white:    #ffffff;
+            --gray:     #7c808a;
+            --gray-lt:  #888b94;
+            --accent:   #6b8cff;
+            --border:   #1e1e22;
+            --font:     'Inter', -apple-system, sans-serif;
+            --title:    'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; overflow-x: clip; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--white);
+            overflow-x: clip;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 { font-family: var(--title); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* ─── NAVBAR ─── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            background: rgba(10,10,11,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .logo img { height: 48px; }
+        .menu-btn { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+        .menu-btn div { width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+        .menu-btn div:last-child { width: 18px; margin-left: auto; }
+
+        /* MOBILE NAV */
+        .mobile-nav {
+            position: fixed; inset: 0; background: var(--bg); z-index: 99;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px;
+            opacity: 0; pointer-events: none; transition: opacity .4s;
+        }
+        .mobile-nav.active { opacity: 1; pointer-events: all; }
+        .mobile-nav a { font-family: var(--title); font-size: 30px; font-weight: 600; opacity: .6; transition: opacity .3s; }
+        .mobile-nav a:hover { opacity: 1; }
+
+        /* ─── HERO ─── */
+        .page-hero {
+            padding: 160px 40px 80px;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .overline {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+        .page-hero h1 {
+            font-family: var(--title);
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .page-hero .meta {
+            font-size: 14px;
+            color: var(--gray);
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        /* ─── CONTENT ─── */
+        .legal-content {
+            flex: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 40px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .legal-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 40px;
+            transition: border-color .3s;
+        }
+        .legal-block:hover {
+            border-color: rgba(107,140,255,.2);
+        }
+
+        .block-num {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .legal-block h2 {
+            font-family: var(--title);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .legal-block p,
+        .legal-block li {
+            font-size: 15px;
+            color: var(--gray-lt);
+            line-height: 1.75;
+        }
+
+        .legal-block ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .legal-block ul li {
+            padding-left: 20px;
+            position: relative;
+        }
+        .legal-block ul li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 12px;
+            top: 2px;
+        }
+
+        .legal-block p + p {
+            margin-top: 12px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 4px;
+        }
+        .info-item {}
+        .info-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 6px;
+            display: block;
+        }
+        .info-value {
+            font-size: 15px;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .accent-link {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            color: var(--accent);
+            transition: opacity .2s;
+        }
+        .accent-link:hover { opacity: .7; }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            position: relative;
+            overflow: hidden;
+            padding: 80px 40px 32px;
+            border-top: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+        }
+        .footer-glow {
+            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+            width: 500px; height: 250px;
+            background: radial-gradient(ellipse, rgba(107,140,255,.10), transparent 70%);
+            filter: blur(60px); pointer-events: none;
+        }
+        .footer-logo { margin-bottom: 40px; }
+        .footer-logo img { height: 64px; filter: brightness(0) invert(1); }
+        .footer-nav { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+        .footer-nav a { color: var(--gray); font-size: 15px; transition: color .3s; }
+        .footer-nav a:hover { color: var(--white); }
+        .footer-legal { display: flex; gap: 24px; margin-bottom: 40px; }
+        .footer-legal a { font-size: 12px; color: var(--gray); letter-spacing: .5px; transition: color .3s; }
+        .footer-legal a:hover { color: var(--white); }
+        .footer-bot {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 20px; border-top: 1px solid var(--border);
+            width: 100%;
+        }
+        .footer-soc { font-size: 13px; color: var(--gray); display: flex; gap: 6px; }
+        .footer-cr  { font-size: 13px; color: var(--gray); }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 3px; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 700px) {
+            .navbar { padding: 16px 20px; }
+            .page-hero { padding: 140px 20px 60px; }
+            .legal-content { padding: 0 20px 80px; }
+            .legal-block { padding: 28px 24px; }
+            .info-grid { grid-template-columns: 1fr; gap: 20px; }
+            .footer { padding: 60px 20px 28px; }
+            .footer-legal { flex-direction: column; gap: 12px; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <img src="image/En-tête (11).webp" alt="Acco">
+    </a>
+    <div class="menu-btn" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="index.html"         onclick="toggleMenu()">Accueil</a>
+    <a href="site-web.html"      onclick="toggleMenu()">Site Web</a>
+    <a href="branding.html"      onclick="toggleMenu()">Branding</a>
+    <a href="referencement.html" onclick="toggleMenu()">Référencement</a>
+    <a href="reseaux.html"       onclick="toggleMenu()">Réseaux Sociaux</a>
+    <a href="recrutement.html"   onclick="toggleMenu()">On recrute</a>
+    <a href="contact.html"       onclick="toggleMenu()" style="font-size:22px;">Contact</a>
+</div>
+
+
+<!-- ─── HERO ─── -->
+<header class="page-hero">
+    <span class="overline">Acco — Agence Web Paris</span>
+    <h1>Politique de<br>confidentialité.</h1>
+    <p class="meta">Dernière mise à jour&nbsp;: Octobre 2026</p>
+</header>
+
+
+<!-- ─── CONTENT ─── -->
+<main class="legal-content">
+
+    <div class="legal-block">
+        <span class="block-num">01</span>
+        <h2>Responsable du traitement</h2>
+        <p>ACCO LAB, SAS au capital de 100 €, 47 rue Vivienne, 75002 Paris, RCS Paris 104 460 167, représentée par Arsène Lecoq, président. Contact : <a href="mailto:contact@acco-lab.fr" class="accent-link">contact@acco-lab.fr</a> — 07 61 67 72 26.</p>
+    </div>
+    <div class="legal-block">
+        <span class="block-num">02</span>
+        <h2>Données collectées</h2>
+        <p><strong>Formulaire de contact</strong> : nom, adresse email, sujet (facultatif) et message.</p>
+        <p><strong>Contact direct</strong> (email, téléphone) : vos coordonnées et le contenu de nos échanges.</p>
+        <p>Nous ne collectons aucune donnée de navigation à des fins de mesure d'audience ou de publicité.</p>
+    </div>
+    <div class="legal-block">
+        <span class="block-num">03</span>
+        <h2>Finalités et base légale</h2>
+        <p>Répondre à vos demandes, établir des propositions commerciales et devis, puis exécuter et suivre les prestations. Base légale : mesures précontractuelles prises à votre demande et exécution du contrat (article 6.1.b du RGPD) ; respect de nos obligations comptables et fiscales pour les données de facturation (article 6.1.c).</p>
+    </div>
+    <div class="legal-block">
+        <span class="block-num">04</span>
+        <h2>Destinataires et sous-traitants</h2>
+        <p>Vos données sont destinées à l'équipe d'ACCO LAB et ne sont jamais vendues. Elles sont traitées par les prestataires techniques suivants :</p>
+        <ul style="margin-top: 12px;">
+            <li><strong>Formspree, Inc.</strong> (États-Unis) — réception et transmission des messages du formulaire de contact ; transferts encadrés par le Data Privacy Framework UE-États-Unis et/ou les clauses contractuelles types de la Commission européenne.</li>
+            <li><strong>Hostinger International Ltd</strong> (Chypre) — hébergement du site.</li>
+            <li><strong>Picsum</strong> (picsum.photos) — fourniture d'images d'illustration de la page d'accueil (adresse IP technique uniquement).</li>
+        </ul>
+    </div>
+    <div class="legal-block">
+        <span class="block-num">05</span>
+        <h2>Durée de conservation</h2>
+        <p>Prospects et demandes sans suite : <strong>3 ans après le dernier contact</strong>. Clients : pendant toute la durée de la relation contractuelle, puis archivage pendant les délais de prescription légaux ; pièces comptables : 10 ans.</p>
+    </div>
+    <div class="legal-block">
+        <span class="block-num">06</span>
+        <h2>Vos droits</h2>
+        <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données, ainsi que du droit de définir des directives relatives à leur sort après votre décès. Pour les exercer : <a href="mailto:contact@acco-lab.fr" class="accent-link">contact@acco-lab.fr</a>. Nous répondons sous un mois.</p>
+        <p>Vous pouvez également adresser une réclamation à la CNIL : <a href="https://www.cnil.fr/fr/plaintes" class="accent-link" rel="noopener">cnil.fr</a>.</p>
+    </div>
+    <div class="legal-block">
+        <span class="block-num">07</span>
+        <h2>Cookies</h2>
+        <p>Ce site ne dépose <strong>aucun cookie</strong> et n'utilise aucun traceur (pas de mesure d'audience, pas de pixel publicitaire, pas de contenu tiers intégré). Les polices de caractères sont hébergées sur notre propre serveur. Seule exception : la page d'accueil affiche des images d'illustration chargées depuis le service Picsum (picsum.photos), qui reçoit à cette occasion l'adresse IP de votre navigateur, sans déposer de cookie. Aucun bandeau de consentement n'est donc nécessaire. Voir aussi notre page <a href="cookies.html" class="accent-link">cookies</a>.</p>
+    </div>
+
+</main>
+
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+    <div class="footer-glow"></div>
+
+    <div class="footer-logo">
+        <img src="image/En-tête (4).webp" alt="Acco">
+    </div>
+
+    <nav class="footer-nav">
+        <a href="index.html">Accueil</a>
+        <a href="site-web.html">Site Web</a>
+        <a href="branding.html">Branding</a>
+        <a href="referencement.html">Référencement</a>
+        <a href="reseaux.html">Réseaux Sociaux</a>
+    </nav>
+
+    <div class="footer-legal">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="cgu.html">CGU</a>
+        <a href="cookies.html">Cookies</a>
+    </div>
+
+    <div class="footer-bot">
+        <div class="footer-soc">IG <span>/</span> LI <span>/</span> X</div>
+        <div class="footer-cr">&copy;2026 ACCO LAB</div>
+    </div>
+</footer>
+
+
+<script>
+    function toggleMenu() {
+        document.getElementById('mobileNav').classList.toggle('active');
+    }
+</script>
+</body>
+</html>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Politique de cookies — ACCO LAB Agence Web Paris</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="robots" content="noindex, follow">
+    <link rel="stylesheet" href="fonts.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,7 +14,7 @@
             --bg-card:  #111113;
             --bg-card2: #161618;
             --white:    #ffffff;
-            --gray:     #555860;
+            --gray:     #7c808a;
             --gray-lt:  #888b94;
             --accent:   #6b8cff;
             --border:   #1e1e22;
@@ -143,6 +144,8 @@
         .legal-block p + p { margin-top: 12px; }
 
         .accent-link {
+            text-decoration: underline;
+            text-underline-offset: 3px;
             color: var(--accent);
             transition: opacity .2s;
         }
@@ -399,106 +402,28 @@
 <header class="page-hero">
     <span class="overline">Acco — Agence Web Paris</span>
     <h1>Politique<br>de cookies.</h1>
-    <p class="meta">Dernière mise à jour&nbsp;: Juin 2026</p>
+    <p class="meta">Dernière mise à jour&nbsp;: Octobre 2026</p>
 </header>
 
 
 <!-- ─── CONTENT ─── -->
 <main class="legal-content">
 
-    <!-- 01 — C'est quoi -->
     <div class="legal-block">
         <span class="block-num">01</span>
         <h2>Qu'est-ce qu'un cookie&nbsp;?</h2>
-        <p>Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, smartphone, tablette) lors de votre visite sur un site web. Il permet au site de mémoriser des informations sur votre navigation pour vous offrir une expérience adaptée et améliorer ses performances.</p>
-        <p>Les cookies ne contiennent pas de virus et ne peuvent pas endommager votre appareil. Leur durée de vie est limitée et ils peuvent être supprimés à tout moment depuis les paramètres de votre navigateur.</p>
+        <p>Un cookie (ou traceur) est un petit fichier ou identifiant déposé sur votre terminal lors de la visite d'un site. Certains sont indispensables au fonctionnement du site, d'autres servent à mesurer l'audience ou à cibler la publicité et nécessitent votre consentement préalable.</p>
     </div>
-
-    <!-- 02 — Cookies utilisés -->
     <div class="legal-block">
         <span class="block-num">02</span>
-        <h2>Cookies que nous utilisons</h2>
-        <div class="cookie-types">
-
-            <div class="cookie-type">
-                <div class="cookie-badge essential"></div>
-                <div class="cookie-type-info">
-                    <h3>
-                        Cookies essentiels
-                        <span class="cookie-tag required">Obligatoires</span>
-                    </h3>
-                    <p>Indispensables au bon fonctionnement du site. Ils permettent d'assurer la navigation et l'utilisation des fonctionnalités de base (mémorisation de vos préférences, sécurité). Ces cookies ne peuvent pas être désactivés.</p>
-                </div>
-            </div>
-
-            <div class="cookie-type">
-                <div class="cookie-badge analytics"></div>
-                <div class="cookie-type-info">
-                    <h3>
-                        Cookies analytiques
-                        <span class="cookie-tag optional">Optionnels</span>
-                    </h3>
-                    <p>Nous permettent de mesurer l'audience du site et de comprendre comment les visiteurs interagissent avec nos pages (pages visitées, durée de session, provenance du trafic). Ces données sont anonymisées et agrégées.</p>
-                </div>
-            </div>
-
-            <div class="cookie-type">
-                <div class="cookie-badge marketing"></div>
-                <div class="cookie-type-info">
-                    <h3>
-                        Cookies marketing
-                        <span class="cookie-tag optional">Optionnels</span>
-                    </h3>
-                    <p>Utilisés pour vous proposer des contenus et publicités personnalisés en fonction de votre navigation. Ils peuvent être déposés par nos partenaires publicitaires. Vous pouvez les refuser sans impact sur votre navigation.</p>
-                </div>
-            </div>
-
-        </div>
+        <h2>Cookies utilisés sur ce site</h2>
+        <p><strong>Aucun.</strong> Le site acco-lab.fr ne dépose aucun cookie et n'utilise aucun traceur : pas d'outil de mesure d'audience, pas de pixel publicitaire, pas de vidéo, de carte ni de réseau social intégrés. Les polices de caractères sont hébergées sur notre propre serveur, sans appel à Google. Seule exception : la page d'accueil affiche des images d'illustration chargées depuis le service Picsum (picsum.photos), qui reçoit à cette occasion l'adresse IP de votre navigateur, sans déposer de cookie.</p>
+        <p>C'est pourquoi aucun bandeau de consentement ne s'affiche. Si nous ajoutions un jour un outil soumis à consentement, un bandeau vous permettant d'accepter ou de refuser aussi simplement serait mis en place au préalable et cette page serait mise à jour.</p>
     </div>
-
-    <!-- 03 — Mes préférences -->
     <div class="legal-block">
         <span class="block-num">03</span>
-        <h2>Gérer mes préférences</h2>
-        <p>Vous pouvez à tout moment choisir d'activer ou de désactiver les cookies optionnels. Vos préférences sont enregistrées localement sur votre appareil.</p>
-
-        <div class="pref-container" style="margin-top: 24px;">
-
-            <div class="pref-section">
-                <div class="pref-label">
-                    <h3>Cookies essentiels</h3>
-                    <p>Toujours actifs — nécessaires au fonctionnement du site</p>
-                </div>
-                <div class="toggle on locked" id="toggleEssential"></div>
-            </div>
-
-            <div class="pref-section">
-                <div class="pref-label">
-                    <h3>Cookies analytiques</h3>
-                    <p>Mesure d'audience anonymisée</p>
-                </div>
-                <div class="toggle" id="toggleAnalytics" onclick="togglePref(this)"></div>
-            </div>
-
-            <div class="pref-section">
-                <div class="pref-label">
-                    <h3>Cookies marketing</h3>
-                    <p>Contenu personnalisé et publicité ciblée</p>
-                </div>
-                <div class="toggle" id="toggleMarketing" onclick="togglePref(this)"></div>
-            </div>
-
-            <button class="save-pref-btn" onclick="savePrefs()">Enregistrer mes préférences</button>
-            <div class="save-msg" id="saveMsg">Préférences enregistrées ✓</div>
-        </div>
-    </div>
-
-    <!-- 04 — Navigateurs -->
-    <div class="legal-block">
-        <span class="block-num">04</span>
-        <h2>Supprimer les cookies via votre navigateur</h2>
-        <p>Vous pouvez également gérer et supprimer les cookies directement depuis les paramètres de votre navigateur.</p>
-
+        <h2>Gérer les cookies dans votre navigateur</h2>
+        <p>Vous pouvez à tout moment consulter et supprimer les cookies des sites que vous visitez depuis les paramètres de votre navigateur :</p>
         <div class="browser-list" style="margin-top: 20px;">
             <div class="browser-item">
                 <span>Google Chrome</span>
@@ -518,12 +443,10 @@
             </div>
         </div>
     </div>
-
-    <!-- 05 — Contact -->
     <div class="legal-block">
-        <span class="block-num">05</span>
+        <span class="block-num">04</span>
         <h2>Une question&nbsp;?</h2>
-        <p>Pour toute question relative à notre politique de cookies ou à l'utilisation de vos données personnelles, vous pouvez nous contacter à l'adresse <a href="mailto:contact@acco-lab.fr" class="accent-link">contact@acco-lab.fr</a> ou consulter nos <a href="mentions-legales.html" class="accent-link">Mentions légales</a>.</p>
+        <p>Pour toute question sur cette page ou sur vos données personnelles : <a href="mailto:contact@acco-lab.fr" class="accent-link">contact@acco-lab.fr</a>. Voir aussi notre <a href="confidentialite.html" class="accent-link">politique de confidentialité</a> et nos <a href="mentions-legales.html" class="accent-link">mentions légales</a>.</p>
     </div>
 
 </main>
@@ -547,7 +470,9 @@
 
     <div class="footer-legal">
         <a href="mentions-legales.html">Mentions légales</a>
-        <a href="cookies.html">Politique de cookies</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="cgu.html">CGU</a>
+        <a href="cookies.html">Cookies</a>
     </div>
 
     <div class="footer-bot">
@@ -562,25 +487,6 @@
         document.getElementById('mobileNav').classList.toggle('active');
     }
 
-    // Load saved prefs
-    const prefs = JSON.parse(localStorage.getItem('accoCookiePrefs') || '{}');
-    if (prefs.analytics) document.getElementById('toggleAnalytics').classList.add('on');
-    if (prefs.marketing)  document.getElementById('toggleMarketing').classList.add('on');
-
-    function togglePref(el) {
-        el.classList.toggle('on');
-    }
-
-    function savePrefs() {
-        const saved = {
-            analytics: document.getElementById('toggleAnalytics').classList.contains('on'),
-            marketing:  document.getElementById('toggleMarketing').classList.contains('on'),
-        };
-        localStorage.setItem('accoCookiePrefs', JSON.stringify(saved));
-        const msg = document.getElementById('saveMsg');
-        msg.style.display = 'block';
-        setTimeout(() => { msg.style.display = 'none'; }, 3000);
-    }
 </script>
 </body>
 </html>

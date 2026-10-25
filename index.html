@@ -1079,6 +1079,37 @@
         .portfolio-item-overlay { display: none; }
 
         /* Carousel indicators */
+        .portfolio-cta-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 36px;
+            padding: 0 20px;
+        }
+
+        .portfolio-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--text-white);
+            color: var(--bg-dark);
+            font-size: clamp(15px, 1.4vw, 17px);
+            font-weight: 600;
+            border-radius: 100px;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .portfolio-cta:hover {
+            background: #000000;
+            color: var(--text-white);
+            transform: translateY(-2px);
+        }
+
+        .portfolio-cta svg { transition: transform 0.2s; }
+        .portfolio-cta:hover svg { transform: translateX(3px); }
+
         .portfolio-indicators {
             display: flex;
             justify-content: center;
@@ -1689,6 +1720,9 @@
             </div>
         </div>
         <div class="portfolio-indicators" id="portfolioIndicators"></div>
+        <div class="portfolio-cta-wrap">
+            <a href="portfolio.html" class="portfolio-cta">Voir notre portfolio <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
     </section>
     </div>
 

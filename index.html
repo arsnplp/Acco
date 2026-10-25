@@ -1011,6 +1011,11 @@
             max-width: 1200px;
             margin: 0 auto 50px;
             padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
         }
 
         .portfolio-label {
@@ -1078,14 +1083,6 @@
 
         .portfolio-item-overlay { display: none; }
 
-        /* Carousel indicators */
-        .portfolio-cta-wrap {
-            display: flex;
-            justify-content: center;
-            margin-top: 36px;
-            padding: 0 20px;
-        }
-
         .portfolio-cta {
             display: inline-flex;
             align-items: center;
@@ -1110,6 +1107,7 @@
         .portfolio-cta svg { transition: transform 0.2s; }
         .portfolio-cta:hover svg { transform: translateX(3px); }
 
+        /* Carousel indicators */
         .portfolio-indicators {
             display: flex;
             justify-content: center;
@@ -1687,8 +1685,11 @@
     <div class="portfolio-scroll-wrapper" id="portfolioWrapper">
     <section class="portfolio-section" id="portfolio">
         <div class="portfolio-header reveal">
-            <div class="portfolio-label">PORTFOLIO</div>
-            <h2>Nos réalisations.</h2>
+            <div class="portfolio-heading">
+                <div class="portfolio-label">PORTFOLIO</div>
+                <h2>Nos réalisations.</h2>
+            </div>
+            <a href="portfolio.html" class="portfolio-cta">Voir notre portfolio <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
 
         <div class="portfolio-carousel">
@@ -1720,9 +1721,6 @@
             </div>
         </div>
         <div class="portfolio-indicators" id="portfolioIndicators"></div>
-        <div class="portfolio-cta-wrap">
-            <a href="portfolio.html" class="portfolio-cta">Voir notre portfolio <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
     </section>
     </div>
 

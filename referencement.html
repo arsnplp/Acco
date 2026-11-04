@@ -2,14 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Référencement | Acco Agence Web Aix-en-Provence</title>
     <link rel="stylesheet" href="fonts.css">
     <style>
+        /* Les attributs width/height servent de ratio avant chargement, le CSS garde la main sur la taille */
+        :where(img[width][height]) { height: auto; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -299,7 +302,7 @@
 
 <!-- ─── NAVBAR ─── -->
 <nav class="navbar">
-    <a href="index.html" class="logo"><img src="image/En-tête (11).webp" alt="Acco"></a>
+    <a href="index.html" class="logo"><img src="image/En-tête (11).webp" alt="Acco" width="48" height="48"></a>
     <div class="menu-btn" onclick="toggleMenu()">
         <div></div><div></div><div></div>
     </div>
@@ -334,25 +337,25 @@
             </h1>
         </div>
         <div class="hero-visual">
-            <img src="image/per3.webp" alt="Visuel référencement">
+            <img src="image/per3.webp" alt="Visuel référencement" width="800" height="800" fetchpriority="high">
         </div>
     </div>
 
     <div class="services-strip">
         <a href="branding.html" class="strip-item">
-            <div class="strip-thumb"><img src="image/petitlogo bra.webp" alt="Branding"></div>
+            <div class="strip-thumb"><img src="image/petitlogo bra.webp" alt="Branding" width="240" height="240"></div>
             <span class="strip-name">Branding</span>
         </a>
         <a href="site-web.html" class="strip-item">
-            <div class="strip-thumb"><img src="image/petitlogo sit.webp" alt="Site Web"></div>
+            <div class="strip-thumb"><img src="image/petitlogo sit.webp" alt="Site Web" width="240" height="240"></div>
             <span class="strip-name">Site Web</span>
         </a>
         <a href="referencement.html" class="strip-item">
-            <div class="strip-thumb"><img src="image/petitlogo ref.webp" alt="Référencement"></div>
+            <div class="strip-thumb"><img src="image/petitlogo ref.webp" alt="Référencement" width="240" height="240"></div>
             <span class="strip-name active">Référencement</span>
         </a>
         <a href="reseaux.html" class="strip-item">
-            <div class="strip-thumb"><img src="image/petitlogo res.webp" alt="Réseaux Sociaux"></div>
+            <div class="strip-thumb"><img src="image/petitlogo res.webp" alt="Réseaux Sociaux" width="240" height="240"></div>
             <span class="strip-name">Réseaux Sociaux</span>
         </a>
     </div>
@@ -377,9 +380,9 @@
         <div class="hook-inner">
 
             <div class="img-grid">
-                <div class="img-cell"><img src="image/referecement11.webp" alt=""></div>
-                <div class="img-cell"><img src="image/referecement12.webp" alt=""></div>
-                <div class="img-cell"><img src="image/referecement13.webp" alt=""></div>
+                <div class="img-cell"><img src="image/referecement11.webp" alt="" width="562" height="1116" loading="lazy" decoding="async"></div>
+                <div class="img-cell"><img src="image/referecement12.webp" alt="" width="556" height="564" loading="lazy" decoding="async"></div>
+                <div class="img-cell"><img src="image/referecement13.webp" alt="" width="556" height="550" loading="lazy" decoding="async"></div>
             </div>
 
             <div>
@@ -423,14 +426,14 @@
                 </div>
             </div>
             <div class="block-img">
-                <img src="image/referecement2.webp" alt="SEO local">
+                <img src="image/referecement2.webp" alt="SEO local" width="800" height="800" loading="lazy" decoding="async">
                 <div class="block-img-logo">acco</div>
             </div>
         </div>
 
         <div class="block-row reverse">
             <div class="block-img">
-                <img src="image/referecement3.webp" alt="Google Ads">
+                <img src="image/referecement3.webp" alt="Google Ads" width="800" height="800" loading="lazy" decoding="async">
                 <div class="block-img-logo">acco</div>
             </div>
             <div>
@@ -459,7 +462,7 @@
         <div class="stats-inner">
 
             <div class="img-square">
-                <img src="image/referecement4.webp" alt="Référencement Google">
+                <img src="image/referecement4.webp" alt="Référencement Google" width="800" height="800" loading="lazy" decoding="async">
             </div>
 
             <div>
@@ -581,7 +584,7 @@
     <div class="footer-glow"></div>
 
     <div class="footer-logo">
-        <img src="image/En-tête (4).webp" alt="Acco">
+        <img src="image/En-tête (4).webp" alt="Acco" width="64" height="64" loading="lazy" decoding="async">
     </div>
 
     <div class="footer-nl">

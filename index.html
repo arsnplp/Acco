@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Acco - Agence Web Aix-en-Provence</title>
     <link rel="stylesheet" href="fonts.css">
     <style>
+        /* Les attributs width/height servent de ratio avant chargement, le CSS garde la main sur la taille */
+        :where(img[width][height]) { height: auto; }
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -772,7 +775,7 @@
         }
 
         /* SNAP SCROLL SECTION */
-        /* SNAP PANELS — normal sections with scroll snap */
+        /* SNAP PANELS : normal sections with scroll snap */
         .snap-panel-character {
             position: absolute;
             bottom: 0;
@@ -1406,7 +1409,7 @@
 
     <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
-        <a href="#hero" class="logo"><img src="image/En-tête (11).webp" alt="Acco Logo"></a>
+        <a href="#hero" class="logo"><img src="image/En-tête (11).webp" alt="Acco Logo" width="240" height="240"></a>
         <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -1545,7 +1548,7 @@
 
         <!-- Hero content on top -->
         <div class="hero-content">
-            <h1 class="hero-title"><img src="image/En-tête (4).webp" alt="Acco" class="hero-logo-img"></h1>
+            <h1 class="hero-title"><img src="image/En-tête (4).webp" alt="Acco" class="hero-logo-img" width="2000" height="2000" fetchpriority="high"></h1>
             <a href="contact.html" class="hero-cta">Contactez-nous</a>
             <p class="hero-subtitle">Nous sommes Acco, une agence web proche de vous.</p>
         </div>
@@ -1587,7 +1590,7 @@
 
         <div class="projects-grid">
             <a href="site-web.html" class="project-card">
-                <img src="image/sit.webp" alt="Site web">
+                <img src="image/sit.webp" alt="Site web" width="800" height="800" loading="lazy" decoding="async">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Site web
@@ -1597,7 +1600,7 @@
             </a>
 
             <a href="branding.html" class="project-card">
-                <img src="image/bra.webp" alt="Branding">
+                <img src="image/bra.webp" alt="Branding" width="800" height="800" loading="lazy" decoding="async">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Branding
@@ -1607,7 +1610,7 @@
             </a>
 
             <a href="contact.html" class="project-card">
-                <img src="image/ia.webp" alt="Automatisation & agents IA">
+                <img src="image/ia.webp" alt="Automatisation & agents IA" width="800" height="800" loading="lazy" decoding="async">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Automatisation &amp; agents IA
@@ -1617,7 +1620,7 @@
             </a>
 
             <a href="referencement.html" class="project-card">
-                <img src="image/ref.webp" alt="Référencement">
+                <img src="image/ref.webp" alt="Référencement" width="800" height="800" loading="lazy" decoding="async">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Référencement
@@ -1627,7 +1630,7 @@
             </a>
 
             <a href="reseaux.html" class="project-card large">
-                <img src="image/res.webp" alt="Réseaux sociaux">
+                <img src="image/res.webp" alt="Réseaux sociaux" width="800" height="800" loading="lazy" decoding="async">
                 <div class="project-card-overlay">
                     <div class="project-card-logo">
                         Réseaux sociaux
@@ -1695,28 +1698,28 @@
         <div class="portfolio-carousel">
             <div class="portfolio-track" id="portfolioTrack">
                 <div class="portfolio-item" data-index="0">
-                    <img src="image/26bis.webp" alt="Projet 1">
+                    <img src="image/26bis.webp" alt="Projet 1" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item" data-index="1">
-                    <img src="image/27.webp" alt="Projet 2">
+                    <img src="image/27.webp" alt="Projet 2" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item active" data-index="2">
-                    <img src="image/28.webp" alt="Projet 3">
+                    <img src="image/28.webp" alt="Projet 3" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item" data-index="3">
-                    <img src="image/29bis.webp" alt="Projet 4">
+                    <img src="image/29bis.webp" alt="Projet 4" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item" data-index="4">
-                    <img src="image/30.webp" alt="Projet 5">
+                    <img src="image/30.webp" alt="Projet 5" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item" data-index="5">
-                    <img src="image/31.webp" alt="Projet 6">
+                    <img src="image/31.webp" alt="Projet 6" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item" data-index="6">
-                    <img src="image/32bis.webp" alt="Projet 7">
+                    <img src="image/32bis.webp" alt="Projet 7" width="800" height="800" loading="lazy" decoding="async">
                 </div>
                 <div class="portfolio-item" data-index="7">
-                    <img src="image/33.webp" alt="Projet 8">
+                    <img src="image/33.webp" alt="Projet 8" width="800" height="800" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -1731,7 +1734,7 @@
 
     <section class="stats-section">
         <div class="stats-image reveal">
-            <img src="image/stats-bg.webp" alt="Acco réalisations">
+            <img src="image/stats-bg.webp" alt="Acco réalisations" width="1738" height="814" loading="lazy" decoding="async">
         </div>
 
         <div class="stats-body">
@@ -1762,7 +1765,7 @@
         </div>
     </section>
 
-    <!-- SNAP SCROLL PANELS — 3 full-screen sections -->
+    <!-- SNAP SCROLL PANELS : 3 full-screen sections -->
     <section class="snap-panel" data-snap="0" style="background: linear-gradient(135deg, #0e0e0f 0%, #6F839E 50%, #0e0e0f 100%);">
         <div class="snap-panel-number">01</div>
         <div class="snap-panel-content">
@@ -1771,7 +1774,7 @@
             <p class="snap-panel-desc">Un site internet n'est pas juste une vitrine. C'est souvent la première impression que vous laissez, et elle doit inspirer confiance instantanément.<br><br>Chez Acco, nous concevons des sites clairs, modernes et stratégiques pour rassurer, convaincre et transformer vos visiteurs en clients.</p>
         </div>
         <div class="snap-panel-character">
-            <img src="image/19.webp" alt="">
+            <img src="image/19.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
         </div>
     </section>
 
@@ -1783,7 +1786,7 @@
             <p class="snap-panel-desc">Être bon ne suffit pas. Il faut être visible, présent, et impossible à ignorer là où vos clients vous cherchent.<br><br>Chez Acco, nous attirons les bonnes personnes, au bon moment, grâce à des stratégies d'acquisition performantes (Ads & réseaux sociaux).</p>
         </div>
         <div class="snap-panel-character">
-            <img src="image/18.webp" alt="">
+            <img src="image/18.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
         </div>
     </section>
 
@@ -1795,7 +1798,7 @@
             <p class="snap-panel-desc">Les marques qui marquent sont celles qu'on reconnaît en un instant. Votre différence n'est pas un détail, c'est votre force.<br><br>Chez Acco, nous construisons une identité forte et cohérente pour que votre marque reste en tête et se démarque durablement.</p>
         </div>
         <div class="snap-panel-character">
-            <img src="image/11.webp" alt="">
+            <img src="image/11.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
         </div>
     </section>
 
@@ -1807,17 +1810,17 @@
         <div class="testimonials-grid">
             <div class="testimonial-card fly-card" data-fly="left">
                 <div class="testimonial-img">
-                    <img src="image/34.webp" alt="Avis client 1">
+                    <img src="image/34.webp" alt="Avis client 1" width="800" height="800" loading="lazy" decoding="async">
                 </div>
             </div>
             <div class="testimonial-card fly-card" data-fly="right">
                 <div class="testimonial-img">
-                    <img src="image/35.webp" alt="Avis client 2">
+                    <img src="image/35.webp" alt="Avis client 2" width="800" height="800" loading="lazy" decoding="async">
                 </div>
             </div>
             <div class="testimonial-card fly-card" data-fly="left">
                 <div class="testimonial-img">
-                    <img src="image/36.webp" alt="Avis client 3">
+                    <img src="image/36.webp" alt="Avis client 3" width="800" height="800" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -1901,7 +1904,7 @@
     <!-- FOOTER -->
     <footer class="footer" id="contact">
         <div class="footer-glow"></div>
-        <div class="footer-big-logo"><img src="image/En-tête (4).webp" alt="Acco" style="height: 80px; width: auto; filter: brightness(0) invert(1);"></div>
+        <div class="footer-big-logo"><img src="image/En-tête (4).webp" alt="Acco" style="height: 80px; width: auto; filter: brightness(0) invert(1);" width="2000" height="2000" loading="lazy" decoding="async"></div>
 
         <div class="footer-newsletter">
             <h3>Newsletter</h3>
@@ -2052,7 +2055,7 @@
             update();
         }
 
-        // PORTFOLIO CAROUSEL — infinite loop
+        // PORTFOLIO CAROUSEL : infinite loop
         (function() {
             const track = document.getElementById('portfolioTrack');
             const indicators = document.getElementById('portfolioIndicators');
@@ -2175,7 +2178,7 @@
                 resetAutoplay();
             }, { passive: true });
 
-            // Click to center — move one step at a time for natural feel
+            // Click to center : move one step at a time for natural feel
             allItems.forEach((item, i) => {
                 item.addEventListener('click', () => {
                     if (i === pointer) return;
@@ -2191,7 +2194,7 @@
             resetAutoplay();
         })();
 
-        // Fly away cards on scroll — smooth with lerp
+        // Fly away cards on scroll : smooth with lerp
         (function() {
             const flyCards = document.querySelectorAll('.fly-card');
             if (!flyCards.length) return;
@@ -2251,7 +2254,7 @@
         })();
     </script>
     <script>
-        // SNAP SCROLL — 3 normal sections, snap between them on scroll
+        // SNAP SCROLL : 3 normal sections, snap between them on scroll
         (function() {
             const panels = document.querySelectorAll('.snap-panel[data-snap]');
             if (!panels.length) return;

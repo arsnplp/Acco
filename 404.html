@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="robots" content="noindex">
+    <title>Page introuvable | Acco Agence Web Aix-en-Provence</title>
+    <link rel="stylesheet" href="/fonts.css">
+    <style>
+        /* Les attributs width/height servent de ratio avant chargement, le CSS garde la main sur la taille */
+        :where(img[width][height]) { height: auto; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0b;
+            --white: #ffffff;
+            --gray: #7c808a;
+            --accent: #6b8cff;
+            --font: 'Inter', -apple-system, sans-serif;
+            --title: 'Poppins', sans-serif;
+        }
+        html, body { height: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+        }
+        .logo { width: 56px; height: 56px; margin-bottom: 40px; }
+        .code {
+            font-family: var(--title);
+            font-size: clamp(72px, 14vw, 140px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: var(--accent);
+        }
+        h1 {
+            font-family: var(--title);
+            font-size: clamp(22px, 3vw, 32px);
+            font-weight: 600;
+            margin: 24px 0 12px;
+        }
+        p { color: var(--gray); font-size: 16px; line-height: 1.6; max-width: 440px; }
+        .btn {
+            display: inline-block;
+            margin-top: 36px;
+            padding: 14px 32px;
+            background: var(--white);
+            color: var(--bg);
+            font-weight: 600;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+        .btn:hover { background: var(--accent); color: var(--white); transform: translateY(-2px); }
+        .links { margin-top: 28px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .links a { color: var(--gray); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+        .links a:hover { color: var(--white); }
+    </style>
+</head>
+<body>
+    <img src="/image/En-tête (11).webp" alt="Acco" class="logo" width="240" height="240">
+    <div class="code">404</div>
+    <h1>Cette page n'existe pas</h1>
+    <p>L'adresse est peut-être erronée, ou la page a été déplacée. Retournez à l'accueil pour retrouver nos services.</p>
+    <a href="/" class="btn">Retour à l'accueil</a>
+    <div class="links">
+        <a href="/site-web.html">Site web</a>
+        <a href="/branding.html">Branding</a>
+        <a href="/referencement.html">Référencement</a>
+        <a href="/reseaux.html">Réseaux sociaux</a>
+        <a href="/portfolio.html">Portfolio</a>
+        <a href="/contact.html">Contact</a>
+    </div>
+</body>
+</html>

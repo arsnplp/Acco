@@ -2,14 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Portfolio | Acco</title>
     <link rel="stylesheet" href="fonts.css">
     <style>
+        /* Les attributs width/height servent de ratio avant chargement, le CSS garde la main sur la taille */
+        :where(img[width][height]) { height: auto; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -244,7 +247,7 @@
 
     <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
-        <a href="index.html" class="logo"><img src="image/En-tête (11).webp" alt="Acco Logo"></a>
+        <a href="index.html" class="logo"><img src="image/En-tête (11).webp" alt="Acco Logo" width="48" height="48"></a>
         <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
             <div></div><div></div><div></div>
         </div>
@@ -285,7 +288,7 @@
                 <picture>
                     <source srcset="image/portfolio/fpnaturenuisible.avif" type="image/avif">
                     <source srcset="image/portfolio/fpnaturenuisible.webp" type="image/webp">
-                    <img src="image/portfolio/fpnaturenuisible.webp" alt="FP Nature Nuisible" loading="lazy">
+                    <img src="image/portfolio/fpnaturenuisible.webp" alt="FP Nature Nuisible" width="1400" height="763" fetchpriority="high">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -310,7 +313,7 @@
                 <picture>
                     <source srcset="image/portfolio/nuisiblesecure.avif" type="image/avif">
                     <source srcset="image/portfolio/nuisiblesecure.webp" type="image/webp">
-                    <img src="image/portfolio/nuisiblesecure.webp" alt="Nuisibles Secure" loading="lazy">
+                    <img src="image/portfolio/nuisiblesecure.webp" alt="Nuisibles Secure" width="1400" height="763">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -335,7 +338,7 @@
                 <picture>
                     <source srcset="image/portfolio/swellaclub.avif" type="image/avif">
                     <source srcset="image/portfolio/swellaclub.webp" type="image/webp">
-                    <img src="image/portfolio/swellaclub.webp" alt="Swella Pilates Club" loading="lazy">
+                    <img src="image/portfolio/swellaclub.webp" alt="Swella Pilates Club" loading="lazy" width="1400" height="763">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -360,7 +363,7 @@
                 <picture>
                     <source srcset="image/portfolio/midpjardin.avif" type="image/avif">
                     <source srcset="image/portfolio/midpjardin.webp" type="image/webp">
-                    <img src="image/portfolio/midpjardin.webp" alt="Mas-if de Provence" loading="lazy">
+                    <img src="image/portfolio/midpjardin.webp" alt="Mas-if de Provence" loading="lazy" width="1400" height="763">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -385,7 +388,7 @@
                 <picture>
                     <source srcset="image/portfolio/maisonchantal.avif" type="image/avif">
                     <source srcset="image/portfolio/maisonchantal.webp" type="image/webp">
-                    <img src="image/portfolio/maisonchantal.webp" alt="Maison Chantal" loading="lazy">
+                    <img src="image/portfolio/maisonchantal.webp" alt="Maison Chantal" loading="lazy" width="1400" height="763">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -410,7 +413,7 @@
                 <picture>
                     <source srcset="image/portfolio/holeen.avif" type="image/avif">
                     <source srcset="image/portfolio/holeen.webp" type="image/webp">
-                    <img src="image/portfolio/holeen.webp" alt="Holeen Family" loading="lazy">
+                    <img src="image/portfolio/holeen.webp" alt="Holeen Family" loading="lazy" width="1400" height="763">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -435,7 +438,7 @@
                 <picture>
                     <source srcset="image/portfolio/grainedouceur.avif" type="image/avif">
                     <source srcset="image/portfolio/grainedouceur.webp" type="image/webp">
-                    <img src="image/portfolio/grainedouceur.webp" alt="Grain de Douceur">
+                    <img src="image/portfolio/grainedouceur.webp" alt="Grain de Douceur" width="1400" height="763" loading="lazy" decoding="async">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -460,7 +463,7 @@
                 <picture>
                     <source srcset="image/portfolio/loratma.avif" type="image/avif">
                     <source srcset="image/portfolio/loratma.webp" type="image/webp">
-                    <img src="image/portfolio/loratma.webp" alt="L'Or ATMA">
+                    <img src="image/portfolio/loratma.webp" alt="L'Or ATMA" width="1400" height="763" loading="lazy" decoding="async">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -485,7 +488,7 @@
                 <picture>
                     <source srcset="image/portfolio/emmabella.avif" type="image/avif">
                     <source srcset="image/portfolio/emmabella.webp" type="image/webp">
-                    <img src="image/portfolio/emmabella.webp" alt="Emmabella">
+                    <img src="image/portfolio/emmabella.webp" alt="Emmabella" width="1400" height="763" loading="lazy" decoding="async">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">
@@ -510,7 +513,7 @@
                 <picture>
                     <source srcset="image/portfolio/carlybeauty.avif" type="image/avif">
                     <source srcset="image/portfolio/carlybeauty.webp" type="image/webp">
-                    <img src="image/portfolio/carlybeauty.webp" alt="By Carly Beauty">
+                    <img src="image/portfolio/carlybeauty.webp" alt="By Carly Beauty" width="1400" height="763" loading="lazy" decoding="async">
                 </picture>
                 <div class="card-overlay">
                     <span class="visit-btn">

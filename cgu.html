@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Conditions générales d'utilisation | ACCO LAB Agence Web Aix-en-Provence</title>
     <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" href="fonts.css">
     <style>
+        /* Les attributs width/height servent de ratio avant chargement, le CSS garde la main sur la taille */
+        :where(img[width][height]) { height: auto; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -248,7 +255,7 @@
 <!-- ─── NAVBAR ─── -->
 <nav class="navbar">
     <a href="index.html" class="logo">
-        <img src="image/En-tête (11).webp" alt="Acco">
+        <img src="image/En-tête (11).webp" alt="Acco" width="48" height="48">
     </a>
     <div class="menu-btn" onclick="toggleMenu()">
         <div></div><div></div><div></div>
@@ -327,7 +334,7 @@
     <div class="footer-glow"></div>
 
     <div class="footer-logo">
-        <img src="image/En-tête (4).webp" alt="Acco">
+        <img src="image/En-tête (4).webp" alt="Acco" width="64" height="64" loading="lazy" decoding="async">
     </div>
 
     <nav class="footer-nav">

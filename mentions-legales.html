@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Mentions légales | ACCO LAB Agence Web Aix-en-Provence</title>
     <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" href="fonts.css">
     <style>
+        /* Les attributs width/height servent de ratio avant chargement, le CSS garde la main sur la taille */
+        :where(img[width][height]) { height: auto; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -248,7 +255,7 @@
 <!-- ─── NAVBAR ─── -->
 <nav class="navbar">
     <a href="index.html" class="logo">
-        <img src="image/En-tête (11).webp" alt="Acco">
+        <img src="image/En-tête (11).webp" alt="Acco" width="48" height="48">
     </a>
     <div class="menu-btn" onclick="toggleMenu()">
         <div></div><div></div><div></div>
@@ -278,7 +285,7 @@
 <!-- ─── CONTENT ─── -->
 <main class="legal-content">
 
-    <!-- 01 — Éditeur -->
+    <!-- 01 : Éditeur -->
     <div class="legal-block">
         <span class="block-num">01</span>
         <h2>Éditeur du site</h2>
@@ -336,7 +343,7 @@
         </div>
     </div>
 
-    <!-- 02 — Hébergement -->
+    <!-- 02 : Hébergement -->
     <div class="legal-block">
         <span class="block-num">02</span>
         <h2>Hébergement</h2>
@@ -357,7 +364,7 @@
         </div>
     </div>
 
-    <!-- 03 — Propriété intellectuelle -->
+    <!-- 03 : Propriété intellectuelle -->
     <div class="legal-block">
         <span class="block-num">03</span>
         <h2>Propriété intellectuelle</h2>
@@ -366,21 +373,21 @@
         <p>Toute exploitation non autorisée du site ou de son contenu sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de la Propriété Intellectuelle.</p>
     </div>
 
-    <!-- 04 — Données personnelles -->
+    <!-- 04 : Données personnelles -->
     <div class="legal-block">
         <span class="block-num">04</span>
         <h2>Données personnelles</h2>
         <p>Les données transmises via le formulaire de contact ou par email sont traitées par ACCO LAB, responsable du traitement, uniquement pour répondre à votre demande et suivre la relation commerciale. Finalités, destinataires, durées de conservation et droits sont détaillés dans notre <a href="confidentialite.html" class="accent-link">politique de confidentialité</a>.</p>
     </div>
 
-    <!-- 05 — Cookies -->
+    <!-- 05 : Cookies -->
     <div class="legal-block">
         <span class="block-num">05</span>
         <h2>Cookies</h2>
         <p>Ce site ne dépose aucun cookie de mesure d'audience ni de publicité. Le détail figure sur notre page <a href="cookies.html" class="accent-link">cookies</a>.</p>
     </div>
 
-    <!-- 06 — Limitation de responsabilité -->
+    <!-- 06 : Limitation de responsabilité -->
     <div class="legal-block">
         <span class="block-num">06</span>
         <h2>Limitation de responsabilité</h2>
@@ -388,7 +395,7 @@
         <p>ACCO LAB décline toute responsabilité concernant les liens hypertextes présents sur le site qui renvoient vers des ressources tierces sur l'Internet et ne peut être tenu responsable de leur contenu.</p>
     </div>
 
-    <!-- 07 — Droit applicable -->
+    <!-- 07 : Droit applicable -->
     <div class="legal-block">
         <span class="block-num">07</span>
         <h2>Droit applicable</h2>
@@ -404,7 +411,7 @@
     <div class="footer-glow"></div>
 
     <div class="footer-logo">
-        <img src="image/En-tête (4).webp" alt="Acco">
+        <img src="image/En-tête (4).webp" alt="Acco" width="64" height="64" loading="lazy" decoding="async">
     </div>
 
     <nav class="footer-nav">
